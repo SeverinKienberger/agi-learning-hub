@@ -1,0 +1,11 @@
+{
+  "name": "ui5.agi_learning_hub",
+  "version": "0.1.0",
+  "description": "Das ist der agi_learning_hub",
+  "scripts": {
+    "start": "ui5 serve -o index.html"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4.0.24"
+  }
+}
