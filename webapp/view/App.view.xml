@@ -1,9 +1,10 @@
 <mvc:View
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true">
+	displayBlock="true"
+   controllerName="ui5.agi_learning_hub.controller.App">
 	<Shell>
-		<App class="myAppDemoWT">
+		<App>
 			<pages>
 				<Page title="{i18n>homePageTitle}">
 					<content>
