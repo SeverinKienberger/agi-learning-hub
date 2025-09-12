@@ -1,2 +1,2 @@
-# agi-learning-hub
+# AGI Learning Hub
 Ein Learning Hub für SAP Kurse
