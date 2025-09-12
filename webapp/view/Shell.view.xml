@@ -1,0 +1,7 @@
+<mvc:View
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt"
+	controllerName="ui5.agi_learning_hub.controller.Shell"
+	height="100%">
+</mvc:View>
