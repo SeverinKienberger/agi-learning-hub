@@ -3,7 +3,8 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true"
    controllerName="ui5.agi_learning_hub.controller.App">
-	<Shell>
+	<Shell
+	appWidthLimited="false">
 		<App
 		id="app"/>
 	</Shell>
