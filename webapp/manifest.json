@@ -23,7 +23,8 @@
 	  "minUI5Version": "1.108.0",
 	  "libs": {
 		"sap.ui.core": {},
-		"sap.m": {}
+		"sap.m": {},
+		"sap.tnt": {}
 	  }
 	},
 	"models": {
@@ -42,27 +43,27 @@
 		"id": "app"
 	},
 	"routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "type": "View",
-        "viewType": "XML",
-        "path": "ui5.agi_learning_hub.view",
-        "controlId": "app",
-        "controlAggregation": "pages"
-      },
-      "routes": [
-        {
-          "pattern": "",
-          "name": "landing",
-          "target": "landing"
-        }
-      ],
-      "targets": {
-        "landing": {
-          "id": "landing",
-          "name": "landing"
-        }
-      }
+		"config": {
+			"routerClass": "sap.m.routing.Router",
+			"type": "View",
+			"viewType": "XML",
+			"path": "ui5.agi_learning_hub.view",
+			"controlId": "app",
+			"controlAggregation": "pages"
+		},
+		"routes": [
+			{
+			"pattern": "",
+			"name": "landing",
+			"target": "landing"
+			}
+		],
+		"targets": {
+			"landing": {
+			"id": "landing",
+			"name": "landing"
+			}
+		}
     }
   }
 }
