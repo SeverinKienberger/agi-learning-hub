@@ -13,7 +13,7 @@
                     <OverflowToolbarLayoutData priority="NeverOverflow"/>
                 </layoutData>
             </Image>
-            <Title text="{i18n>homePageTitle}" wrapping="false">
+            <Title text="{i18n>landingPageTitle}" wrapping="false">
                 <layoutData>
                     <OverflowToolbarLayoutData priority="Disappear"/>
                 </layoutData>
