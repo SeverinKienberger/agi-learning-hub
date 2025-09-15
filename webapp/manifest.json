@@ -40,6 +40,29 @@
 		"viewName": "ui5.agi_learning_hub.view.App",
 		"type": "XML",
 		"id": "app"
-	}
+	},
+	"routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "ui5.agi_learning_hub.view",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "landing",
+          "target": "landing"
+        }
+      ],
+      "targets": {
+        "landing": {
+          "id": "landing",
+          "name": "landing"
+        }
+      }
+    }
   }
 }

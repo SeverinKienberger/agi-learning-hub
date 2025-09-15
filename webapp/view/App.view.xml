@@ -4,14 +4,7 @@
 	displayBlock="true"
    controllerName="ui5.agi_learning_hub.controller.App">
 	<Shell>
-		<App>
-			<pages>
-				<Page title="{i18n>homePageTitle}">
-					<content>
-						<mvc:XMLView viewName="ui5.agi_learning_hub.view.Shell"/>
-					</content>
-				</Page>
-			</pages>
-		</App>
+		<App
+		id="app"/>
 	</Shell>
 </mvc:View>
