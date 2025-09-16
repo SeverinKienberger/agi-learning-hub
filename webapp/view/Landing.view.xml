@@ -7,28 +7,7 @@
     <Page
         showHeader="false">
         <content>
-        <tnt:ToolPage id="toolPage">
-            <tnt:header>
-                <tnt:ToolHeader id="shellLikeToolHeaderOnlyMandatoryControls" class="sapUiLargeMarginLeft">
-                    <Image src="images/AGILITA Logo-01.svg" decorative="false" press="onLogoPressed" tooltip="AGILITA Logo" width="120px">
-                        <layoutData>
-                            <OverflowToolbarLayoutData priority="NeverOverflow"/>
-                        </layoutData>
-                    </Image>
-                    <Title text="{i18n>landingPageTitle}" wrapping="false">
-                        <layoutData>
-                            <OverflowToolbarLayoutData priority="Disappear"/>
-                        </layoutData>
-                    </Title>
-                    <ToolbarSpacer />
-                    <Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" tooltip="Profile">
-                        <layoutData>
-                            <OverflowToolbarLayoutData priority="NeverOverflow"/>
-                        </layoutData>
-                    </Avatar>
-                </tnt:ToolHeader>
-            </tnt:header>
-        </tnt:ToolPage>
+            <Text text="fydgxfgchjvkblnöm,ä"/>
         </content>
     </Page>
 </mvc:View>

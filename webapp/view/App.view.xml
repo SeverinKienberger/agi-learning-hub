@@ -1,11 +1,32 @@
 <mvc:View
 	xmlns="sap.m"
+	xmlns:tnt="sap.tnt"
 	xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true"
    controllerName="ui5.agi_learning_hub.controller.App">
-	<Shell
-	appWidthLimited="false">
-		<App
-		id="app"/>
-	</Shell>
+   <VBox>
+		<tnt:ToolHeader id="shellLikeToolHeaderOnlyMandatoryControls" class="sapUiLargeMarginLeft">
+			<Image src="images/AGILITA Logo-01.svg" decorative="false" press="onLogoPressed" tooltip="AGILITA Logo" width="120px">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Image>
+			<Title text="{i18n>landingPageTitle}" wrapping="false">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="Disappear"/>
+				</layoutData>
+			</Title>
+			<ToolbarSpacer />
+			<Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" tooltip="Profile">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Avatar>
+		</tnt:ToolHeader>
+		<Shell
+		appWidthLimited="false">
+			<App
+			id="app"/>
+		</Shell>
+	</VBox>
 </mvc:View>
