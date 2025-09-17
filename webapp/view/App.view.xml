@@ -12,7 +12,6 @@
 		</f:ShellBar>
 		<IconTabHeader
 			id="iconTabHeader"
-			selectedKey="invalidKey"
 			backgroundDesign="Transparent"
 			mode="Inline"
 			select="onTabSelect">

@@ -6,7 +6,7 @@
     <Page
         showHeader="false">
         <content>
-            <Text text="Die Landing view Ladet"/>
+            <Text text="Landing Page"/>
         </content>
     </Page>
 </mvc:View>

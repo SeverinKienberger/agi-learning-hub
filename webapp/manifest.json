@@ -20,7 +20,7 @@
 	},
 	"sap.ui5": {
 		"dependencies": {
-		"minUI5Version": "1.108.0",
+		"minUI5Version": "1.65.0",
 		"libs": {
 			"sap.ui.core": {},
 			"sap.m": {},
@@ -52,6 +52,11 @@
 				"controlAggregation": "pages"
 			},
 			"routes": [
+				{
+				"pattern": "",
+				"name": "home",
+				"target": "landing"
+				},
 				{
 				"pattern": "landing",
 				"name": "landing",
@@ -90,31 +95,38 @@
 			],
 			"targets": {
 				"landing": {
-				"viewName": "Landing",
+				"id": "landing",
+				"name": "Landing",
 				"viewLevel": 1
 				},
 				"myLearning": {
-				"viewName": "MyLearning",
+				"id": "myLearning",
+				"name": "MyLearning",
 				"viewLevel": 2
 				},
 				"browseCourses": {
-				"viewName": "BrowseCourses",
+				"id": "browseCourses",
+				"name": "BrowseCourses",
 				"viewLevel": 3
 				},
 				"browseLearnings": {
-				"viewName": "BrowseLearnings",
+				"id": "browseLearnings",
+				"name": "BrowseLearnings",
 				"viewLevel": 4
 				},
 				"browseAll": {
-				"viewName": "BrowseAll",
+				"id": "browseAll",
+				"name": "BrowseAll",
 				"viewLevel": 5
 				},
-				"mySuccessBadges": {
-				"viewName": "MySuccessBadges",
+				"myBadges": {
+				"id": "myBadges",
+				"name": "MyBadges",
 				"viewLevel": 6
 				},
-				"mySuccessCertificates": {
-				"viewName": "MySuccessCertificates",
+				"myCertificates": {
+				"id": "myCertificates",
+				"name": "MyCertificates",
 				"viewLevel": 7
 				}
 			}
