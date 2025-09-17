@@ -14,24 +14,22 @@
 			id="iconTabHeader"
 			selectedKey="invalidKey"
 			backgroundDesign="Transparent"
-			mode="Inline">
-			<layoutData>
-				<OverflowToolbarLayoutData priority="NeverOverflow" shrinkable="true" />
-			</layoutData>
+			mode="Inline"
+			select="onTabSelect">
 			<items>
-				<IconTabFilter key="info" text="{i18n>landingPageTitle}"/>
-				<IconTabFilter key="info" text="{i18n>myLearningPageTitle}"/>
-				<IconTabFilter key="info" text="{i18n>browsePageTitle}">
+				<IconTabFilter key="landing" id="landingTab" text="{i18n>landingPageTitle}"/>
+				<IconTabFilter key="myLearning" id="myLearningTab" text="{i18n>myLearningPageTitle}"/>
+				<IconTabFilter key="browse" id="browseTab" text="{i18n>browsePageTitle}">
 					<items>
-						<IconTabFilter text="{i18n>browseCoursesPageTitle}"/>
-						<IconTabFilter text="{i18n>browseLearningsPageTitle}"/>
-						<IconTabFilter text="{i18n>browseAllPageTitle}"/>
+						<IconTabFilter key="browseCourses" text="{i18n>browseCoursesPageTitle}"/>
+						<IconTabFilter key="browseLearnings" text="{i18n>browseLearningsPageTitle}"/>
+						<IconTabFilter key="browseAll" text="{i18n>browseAllPageTitle}"/>
 					</items>
 				</IconTabFilter>
-				<IconTabFilter key="info" text="{i18n>mySuccessPageTitle}">
+				<IconTabFilter key="mySuccess" id="mySuccessTab" text="{i18n>mySuccessPageTitle}">
 					<items>
-						<IconTabFilter text="{i18n>myBadgesPageTitle}"/>
-						<IconTabFilter text="{i18n>myCertificatesPageTitle}"/>
+						<IconTabFilter key="myBadges" text="{i18n>myBadgesPageTitle}"/>
+						<IconTabFilter key="myCertificates" text="{i18n>myCertificatesPageTitle}"/>
 					</items>
 				</IconTabFilter>
 			</items>

@@ -1,69 +1,123 @@
 {
-  "_version": "1.65.0",
-  "sap.app": {
-	"id": "ui5.agi_learning_hub",
-	"i18n": "i18n/i18n.properties",
-	"title": "{{appTitle}}",
-	"description": "{{appDescription}}",
-	"type": "application",
-	"applicationVersion": {
-	  "version": "1.0.0"
-	}
-  },
-  "sap.ui": {
-	"technology": "UI5",
-	"deviceTypes": {
-		"desktop": true,
-		"tablet": true,
-		"phone": true
-	}
-  },
-  "sap.ui5": {
-	"dependencies": {
-	  "minUI5Version": "1.108.0",
-	  "libs": {
-		"sap.ui.core": {},
-		"sap.m": {},
-		"sap.f": {}
-	  }
-	},
-	"models": {
-	  "i18n": {
-		"type": "sap.ui.model.resource.ResourceModel",
-		"settings": {
-		  "bundleName": "ui5.agi_learning_hub.i18n.i18n",
-		  "supportedLocales": [""],
-		  "fallbackLocale": ""
+	"_version": "1.65.0",
+	"sap.app": {
+		"id": "ui5.agi_learning_hub",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"type": "application",
+		"applicationVersion": {
+		"version": "1.0.0"
 		}
-	  }
 	},
-	"rootView": {
-		"viewName": "ui5.agi_learning_hub.view.App",
-		"type": "XML",
-		"id": "app"
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
 	},
-	"routing": {
-		"config": {
-			"routerClass": "sap.m.routing.Router",
-			"type": "View",
-			"viewType": "XML",
-			"path": "ui5.agi_learning_hub.view",
-			"controlId": "app",
-			"controlAggregation": "pages"
+	"sap.ui5": {
+		"dependencies": {
+		"minUI5Version": "1.108.0",
+		"libs": {
+			"sap.ui.core": {},
+			"sap.m": {},
+			"sap.f": {}
+		}
 		},
-		"routes": [
-			{
-			"pattern": "",
-			"name": "landing",
-			"target": "landing"
-			}
-		],
-		"targets": {
-			"landing": {
-			"id": "landing",
-			"name": "landing"
+		"models": {
+		"i18n": {
+			"type": "sap.ui.model.resource.ResourceModel",
+			"settings": {
+			"bundleName": "ui5.agi_learning_hub.i18n.i18n",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
 			}
 		}
-    }
-  }
+		},
+		"rootView": {
+			"viewName": "ui5.agi_learning_hub.view.App",
+			"type": "XML",
+			"id": "app"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "ui5.agi_learning_hub.view",
+				"controlId": "app",
+				"controlAggregation": "pages"
+			},
+			"routes": [
+				{
+				"pattern": "landing",
+				"name": "landing",
+				"target": "landing"
+				},
+				{
+				"pattern": "myLearning",
+				"name": "myLearning",
+				"target": "myLearning"
+				},
+				{
+				"pattern": "browseCourses",
+				"name": "browseCourses",
+				"target": "browseCourses"
+				},
+				{
+				"pattern": "browseLearnings",
+				"name": "browseLearnings",
+				"target": "browseLearnings"
+				},
+				{
+				"pattern": "browseAll",
+				"name": "browseAll",
+				"target": "browseAll"
+				},
+				{
+				"pattern": "myBadges",
+				"name": "myBadges",
+				"target": "myBadges"
+				},
+				{
+				"pattern": "myCertificates",
+				"name": "myCertificates",
+				"target": "myCertificates"
+				}
+			],
+			"targets": {
+				"landing": {
+				"viewName": "Landing",
+				"viewLevel": 1
+				},
+				"myLearning": {
+				"viewName": "MyLearning",
+				"viewLevel": 2
+				},
+				"browseCourses": {
+				"viewName": "BrowseCourses",
+				"viewLevel": 3
+				},
+				"browseLearnings": {
+				"viewName": "BrowseLearnings",
+				"viewLevel": 4
+				},
+				"browseAll": {
+				"viewName": "BrowseAll",
+				"viewLevel": 5
+				},
+				"mySuccessBadges": {
+				"viewName": "MySuccessBadges",
+				"viewLevel": 6
+				},
+				"mySuccessCertificates": {
+				"viewName": "MySuccessCertificates",
+				"viewLevel": 7
+				}
+			}
+		}
+	}
 }
