@@ -2,12 +2,11 @@
 	xmlns="sap.m"
     xmlns:tnt="sap.tnt"
 	xmlns:mvc="sap.ui.core.mvc"
-	displayBlock="true"
     controllerName="ui5.agi_learning_hub.controller.Landing">
     <Page
         showHeader="false">
         <content>
-            <Text text="fydgxfgchjvkblnöm,ä"/>
+            <Text text="Die Landing view Ladet"/>
         </content>
     </Page>
 </mvc:View>
