@@ -5,7 +5,7 @@
     <Page
         showHeader="false">
         <content>
-            <Text text="BrowseAll Seite"/>
+            <Text text="Die BrowseAll Seite wird angezeigt"/>
         </content>
     </Page>
 </mvc:View>
