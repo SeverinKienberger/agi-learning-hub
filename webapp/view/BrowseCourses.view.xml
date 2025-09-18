@@ -1,11 +1,23 @@
 <mvc:View
-	xmlns="sap.m"
-    xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc">
-    <Page
-        showHeader="false">
-        <content>
-            <Text text="BrowseCourses Seite"/>
-        </content>
-    </Page>
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:grid="sap.ui.layout.cssgrid"
+  	controllerName="ui5.agi_learning_hub.controller.BrowseCourses">
+    	<f:GridList
+			id="gridList"
+			headerText="GridList header"
+			items="{mockData>/master_data/courses}">
+            <f:customLayout>
+				<grid:GridBoxLayout boxWidth="22.5rem"/>
+			</f:customLayout>
+			<f:GridListItem>
+				<VBox class="sapUiSmallMargin">
+					<layoutData>
+						<FlexItemData growFactor="1" shrinkFactor="0"/>
+					</layoutData>
+					<Title text="{mockData>title}" wrapping="true"/>
+				</VBox>
+			</f:GridListItem>
+		</f:GridList>
 </mvc:View>

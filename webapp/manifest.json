@@ -24,18 +24,23 @@
 		"libs": {
 			"sap.ui.core": {},
 			"sap.m": {},
+			"sap.ui.layout": {},
 			"sap.f": {}
 		}
 		},
 		"models": {
-		"i18n": {
-			"type": "sap.ui.model.resource.ResourceModel",
-			"settings": {
-			"bundleName": "ui5.agi_learning_hub.i18n.i18n",
-			"supportedLocales": [""],
-			"fallbackLocale": ""
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+				"bundleName": "ui5.agi_learning_hub.i18n.i18n",
+				"supportedLocales": [""],
+				"fallbackLocale": ""
+				}
+			},
+			"mockData": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/MockData.json"
 			}
-		}
 		},
 		"rootView": {
 			"viewName": "ui5.agi_learning_hub.view.App",
