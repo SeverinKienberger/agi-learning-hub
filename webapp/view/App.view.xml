@@ -5,7 +5,9 @@
   	controllerName="ui5.agi_learning_hub.controller.App">
 	<VBox>
 		<f:ShellBar title="Learning Hub"
-			homeIcon="images/AGILITA Logo-01.svg">
+			homeIcon="images/AGILITA Logo-01.svg"
+			showNavButton="true"
+			navButtonPressed=".onNavBack">
 			<f:profile>
 				<Avatar initials="SK"/>
 			</f:profile>
@@ -22,7 +24,6 @@
 					<items>
 						<IconTabFilter key="browseCourses" text="{i18n>browseCoursesPageTitle}"/>
 						<IconTabFilter key="browseLearnings" text="{i18n>browseLearningsPageTitle}"/>
-						<IconTabFilter key="browseAll" text="{i18n>browseAllPageTitle}"/>
 					</items>
 				</IconTabFilter>
 				<IconTabFilter key="mySuccess" id="mySuccessTab" text="{i18n>mySuccessPageTitle}">

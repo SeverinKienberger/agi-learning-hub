@@ -16,6 +16,17 @@ sap.ui.define([
 
          var oRouter = this.getOwnerComponent().getRouter();
          oRouter.navTo(sSelectedKey);
+      },
+
+      onNavBack: function(oEvent) {
+         const oHistory = sap.ui.core.routing.History.getInstance();
+         const sPreviousHash = oHistory.getPreviousHash();
+
+         if (sPreviousHash !== undefined) {
+            window.history.go(-1);
+         } else {
+            this.getOwnerComponent().getRouter().navTo("browseCourses", {}, true);
+         }
       }
    });
 });

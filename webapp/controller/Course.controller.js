@@ -24,6 +24,10 @@ sap.ui.define([
                 path: `/master_data/courses/${i}`
                 });
             }
+        },
+
+        onNavBack: function(oEvent) {
+            alert("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         }
     });
 });
