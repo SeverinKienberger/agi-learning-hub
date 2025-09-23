@@ -25,9 +25,5 @@ sap.ui.define([
                 });
             }
         },
-
-        onNavBack: function(oEvent) {
-            alert("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        }
     });
 });
