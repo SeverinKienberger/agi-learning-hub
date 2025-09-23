@@ -1,11 +1,23 @@
 <mvc:View
 	xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc">
+	xmlns:mvc="sap.ui.core.mvc"
+    controllerName="ui5.agi_learning_hub.controller.Course">
     <Page
         showHeader="false">
+        <VBox alignItems="Center" backgroundDesign="Solid">
+            <Title text="{mockData>title}" wrapping="true" class="AgiHeader1"/>
+        </VBox>
+        <List
+            items="{mockData>units}"
+            class="sapUiResponsiveMargin"
+            width="auto">
+            <items>
+                <ObjectListItem
+                    title="{mockData>title}"/>
+            </items>
+        </List>
         <content>
-            
         </content>
     </Page>
 </mvc:View>
