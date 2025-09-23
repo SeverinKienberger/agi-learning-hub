@@ -21,17 +21,18 @@
                     items="{
                         path: 'mockData>/master_data/levels'
                     }">
-                    <core:Item key="{mockData>id}" text="{mockData>title}" />
+                    <core:Item key="{mockData>id}" text="{mockData>title}"/>
                 </MultiComboBox> <!--Filter, mit filterItems direkt aus dem Model :)-->
             </Toolbar>
             <f:GridList
                 id="gridList"
                 items="{mockData>/master_data/courses}"
+                itemPress=".onCoursePress"
                 class="AgiGridList">
                 <f:customLayout>
                     <grid:GridBoxLayout boxMinWidth="15rem"/>
                 </f:customLayout>
-                <f:GridListItem>
+                <f:GridListItem type="Active">
                     <VBox class="sapUiSmallMargin" justifyContent="SpaceBetween" height="calc(100% - 30px)">
                         <layoutData>
                             <FlexItemData growFactor="7" shrinkFactor="0"/>
@@ -44,7 +45,7 @@
                             <Text text="{= ( ${mockData>total_duration_minutes} - ${mockData>total_duration_minutes} % 60 ) / 60
                                             + ' h ' +
                                         ( ${mockData>total_duration_minutes} % 60 ) + ' min' }"
-                                wrapping="true"/>
+                                wrapping="false"/>
                         </HBox>
                     </VBox>
                 </f:GridListItem>

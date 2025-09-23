@@ -42,6 +42,14 @@ sap.ui.define([
             aFilters.push(new Filter({ filters: aLevelFilters, and: false }));
          }
          this.byId("gridList").getBinding("items").filter(aFilters);
+      },
+
+      onCoursePress: function (oEvent) {
+         const oItem = oEvent.getParameter("listItem");
+         const sPath = oItem.getBindingContext("mockData").getPath();
+         const oCourse = oItem.getBindingContext("mockData").getObject();
+         const sId = oCourse.id;
+         this.getOwnerComponent().getRouter().navTo("course", { id: sId });
       }
    });
 });

@@ -85,6 +85,11 @@
 				"target": "browseCourses"
 				},
 				{
+				"pattern": "course/{id}",
+				"name": "course",
+				"target": "course"
+				},
+				{
 				"pattern": "browseLearnings",
 				"name": "browseLearnings",
 				"target": "browseLearnings"
@@ -120,6 +125,11 @@
 				"id": "browseCourses",
 				"name": "BrowseCourses",
 				"viewLevel": 3
+				},
+				"course": {
+				"id": "course",
+				"name": "Course",
+				"viewLevel": 4
 				},
 				"browseLearnings": {
 				"id": "browseLearnings",
