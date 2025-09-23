@@ -1,0 +1,11 @@
+<mvc:View
+	xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+	xmlns:mvc="sap.ui.core.mvc">
+    <Page
+        showHeader="false">
+        <content>
+            
+        </content>
+    </Page>
+</mvc:View>
