@@ -12,7 +12,7 @@
 		</f:ShellBar>
 		<IconTabHeader
 			id="iconTabHeader"
-			backgroundDesign="solid"
+			backgroundDesign="Solid"
 			mode="Inline"
 			select="onTabSelect">
 			<items>

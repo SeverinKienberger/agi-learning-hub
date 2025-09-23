@@ -1,0 +1,30 @@
+.AgiHeader1 {
+    background: -webkit-linear-gradient(45deg, #E97132, #C00000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-size: 41px;
+}
+
+.AgiGridListContainer {
+    display: flex;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.AgiGridList {
+    margin-top: 2rem;
+}
+
+.AgiFilterBar {
+    background: transparent !important;
+    margin-top: 1rem !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+.AgiFilterElement > * {
+  border-radius: 10px !important;
+  background: #ffffff !important;
+}
