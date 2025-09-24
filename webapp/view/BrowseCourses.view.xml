@@ -41,7 +41,7 @@
                         <Title text="{mockData>title}" wrapping="true"/>
                         <Text text="{mockData>description}" wrapping="true"/>
                         <HBox justifyContent="SpaceBetween" width="100%" class="sapUiSmallMarginTop">
-                            <Text text="{ path: 'mockData>level_id', formatter: '.filterLevel'}" wrapping="true"/>
+                            <Text text="{ path: 'mockData>level_id', formatter: '.LevelFormatter'}" wrapping="true"/>
                             <Text text="{= ( ${mockData>total_duration_minutes} - ${mockData>total_duration_minutes} % 60 ) / 60
                                             + ' h ' +
                                         ( ${mockData>total_duration_minutes} % 60 ) + ' min' }"

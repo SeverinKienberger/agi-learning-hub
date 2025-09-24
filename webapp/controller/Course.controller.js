@@ -18,12 +18,11 @@ sap.ui.define([
             const oMD = this.getOwnerComponent().getModel("mockData");
             const a   = oMD.getProperty("/master_data/courses") || [];
             const i   = a.findIndex(c => c.id === sId);
-            if (i > -1) {
-                this.getView().bindElement({
-                model: "mockData",
-                path: `/master_data/courses/${i}`
-                });
-            }
+            
+            this.getView().bindElement({
+            model: "mockData",
+            path: `/master_data/courses/${i}`
+            });
         },
     });
 });

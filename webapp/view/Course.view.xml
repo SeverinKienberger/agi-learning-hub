@@ -5,19 +5,47 @@
     controllerName="ui5.agi_learning_hub.controller.Course">
     <Page
         showHeader="false">
-        <VBox alignItems="Center" backgroundDesign="Solid">
-            <Title text="{mockData>title}" wrapping="true" class="AgiHeader1"/>
-        </VBox>
-        <List
-            items="{mockData>units}"
-            class="sapUiResponsiveMargin"
-            width="auto">
-            <items>
-                <ObjectListItem
-                    title="{mockData>title}"/>
-            </items>
-        </List>
         <content>
+            <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
+                <Title text="{mockData>title}" wrapping="true" class="AgiHeader2"/>
+                <Button text="Kurs Fortsetzen"/>
+            </VBox>
+            <VBox
+                items="{mockData>units}"
+                class="sapUiResponsiveMargin"
+                width="auto">
+                <items>
+                    <Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+                        <headerToolbar>
+                            <OverflowToolbar style="Clear" height="5rem">
+                                <VBox>
+                                    <Title text="{mockData>title}" class="sapUiSmallMarginTop"/>
+                                    <Text text="Dauer: {mockData>duration_minutes} min" class="sapUiSmallMarginBottom"/>
+                                </VBox>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <content>
+                            <Text text="{mockData>description}"/>
+                            <VBox items="{mockData>chapters}" class="sapUiSmallMargin">
+                                <items>
+                                    <FlexBox class="AgiListLine">
+                                        <HBox class="AgiTinyMarginVertical" width="100%">
+                                            <HBox class="AgiListNumber"/>
+                                            <HBox justifyContent="SpaceBetween" width="15rem">
+                                                <Link
+						                            text="{mockData>title}"
+                                                    emphasized="true"
+                                                    href="{}" />
+                                                <Text text="Dauer: {mockData>duration_minutes} min"/>
+                                            </HBox>
+                                        </HBox>
+                                    </FlexBox>
+                                </items>
+                            </VBox>
+                        </content>
+                    </Panel>
+                </items>
+            </VBox>
         </content>
     </Page>
 </mvc:View>

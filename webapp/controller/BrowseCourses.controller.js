@@ -7,7 +7,7 @@ sap.ui.define([
    "use strict";
 
    return Controller.extend("ui5.agi_learning_hub.controller.BrowseCourses", {
-      filterLevel(id) {          
+      LevelFormatter(id) {          
       const oModel = this.getOwnerComponent().getModel("mockData")          
       const oMasteData = oModel.getProperty("/master_data")        
       const oLevels = oMasteData.levels          
@@ -46,7 +46,6 @@ sap.ui.define([
 
       onCoursePress: function (oEvent) {
          const oItem = oEvent.getParameter("listItem");
-         const sPath = oItem.getBindingContext("mockData").getPath();
          const oCourse = oItem.getBindingContext("mockData").getObject();
          const sId = oCourse.id;
          this.getOwnerComponent().getRouter().navTo("course", { id: sId });
