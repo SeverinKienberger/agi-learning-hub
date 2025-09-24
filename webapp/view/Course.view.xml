@@ -33,9 +33,9 @@
                                             <HBox class="AgiListNumber"/>
                                             <HBox justifyContent="SpaceBetween" width="15rem">
                                                 <Link
-						                            text="{mockData>title}"
+                                                    text="{mockData>title}"
                                                     emphasized="true"
-                                                    href="{}" />
+                                                    press=".onChapterPress"/>
                                                 <Text text="Dauer: {mockData>duration_minutes} min"/>
                                             </HBox>
                                         </HBox>

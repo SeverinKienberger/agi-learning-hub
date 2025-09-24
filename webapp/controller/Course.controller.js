@@ -18,11 +18,20 @@ sap.ui.define([
             const oMD = this.getOwnerComponent().getModel("mockData");
             const a   = oMD.getProperty("/master_data/courses") || [];
             const i   = a.findIndex(c => c.id === sId);
-            
+
             this.getView().bindElement({
             model: "mockData",
             path: `/master_data/courses/${i}`
             });
         },
+
+        onChapterPress: function (oEvent) {
+            const oItem = oEvent.getSource();
+            const oChapter = oItem.getBindingContext("mockData").getObject();
+            const sChapterId = oChapter.id;
+            const sCourseId = this.getView().getBindingContext("mockData").getProperty("id");
+            alert(sChapterId);
+            this.getOwnerComponent().getRouter().navTo("chapter", { courseId: sCourseId, chapterId: sChapterId });
+        }
     });
 });

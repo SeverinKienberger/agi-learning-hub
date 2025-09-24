@@ -1,0 +1,12 @@
+<mvc:View
+	xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+	xmlns:mvc="sap.ui.core.mvc"
+    controllerName="ui5.agi_learning_hub.controller.Chapter">
+    <Page
+        showHeader="false">
+        <content>
+            <Text text="Chapter"/>
+        </content>
+    </Page>
+</mvc:View>

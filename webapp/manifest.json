@@ -90,6 +90,11 @@
 				"target": "course"
 				},
 				{
+				"pattern": "course/{courseId}/chapter/{chapterId}",
+				"name": "chapter",
+				"target": "chapter"
+				},
+				{
 				"pattern": "browseLearnings",
 				"name": "browseLearnings",
 				"target": "browseLearnings"
@@ -130,6 +135,11 @@
 				"id": "course",
 				"name": "Course",
 				"viewLevel": 4
+				},
+				"chapter": {
+				"id": "chapter",
+				"name": "Chapter",
+				"viewLevel": 5
 				},
 				"browseLearnings": {
 				"id": "browseLearnings",
