@@ -30,7 +30,6 @@ sap.ui.define([
             const oChapter = oItem.getBindingContext("mockData").getObject();
             const sChapterId = oChapter.id;
             const sCourseId = this.getView().getBindingContext("mockData").getProperty("id");
-            alert(sChapterId);
             this.getOwnerComponent().getRouter().navTo("chapter", { courseId: sCourseId, chapterId: sChapterId });
         }
     });
