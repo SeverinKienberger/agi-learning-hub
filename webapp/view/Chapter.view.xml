@@ -1,12 +1,26 @@
 <mvc:View
-	xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc"
-    controllerName="ui5.agi_learning_hub.controller.Chapter">
-    <Page
-        showHeader="false">
-        <content>
-            <Text text="Chapterseite"/>
-        </content>
-    </Page>
+    controllerName="ui5.agi_learning_hub.controller.Chapter"
+    height="100%">
+
+    <tnt:ToolPage id="toolPage">
+        <tnt:sideContent>
+            <tnt:SideNavigation expanded="true" selectedKey="home" itemSelect="onItemSelect">
+                <tnt:item>
+                    <tnt:NavigationList items="{mockData>units}">
+                        <tnt:NavigationListItem items="{mockData>chapters}" key="{mockData>id}" text="{mockData>title}">
+                            <tnt:NavigationListItem text="{mockData>title}" key="{mockData>id}"  select=".onChapterPress"/>
+                        </tnt:NavigationListItem>
+                    </tnt:NavigationList>
+                </tnt:item>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <Page id="chapterDetails" showHeader="false">
+                <Title text="{mockData>title}"/>
+            </Page>
+        </tnt:mainContents>
+    </tnt:ToolPage>
 </mvc:View>
