@@ -24,8 +24,7 @@ sap.ui.define([
          });
       },
 
-      onChapterPress: function (oEvent) {
-         const oModel = this.getView().getModel("mockData")             
+      onChapterPress: function (oEvent) {       
          const oItem = oEvent.getParameter("item") || oEvent.getSource();
          const oCtx  = oItem?.getBindingContext?.("mockData");
          const sPath = oCtx?.getPath?.();

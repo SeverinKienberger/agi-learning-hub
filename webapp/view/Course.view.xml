@@ -15,35 +15,43 @@
                 class="sapUiResponsiveMargin"
                 width="auto">
                 <items>
-                    <Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
-                        <headerToolbar>
-                            <OverflowToolbar style="Clear" height="5rem">
-                                <VBox>
-                                    <Title text="{mockData>title}" class="sapUiSmallMarginTop"/>
-                                    <Text text="Dauer: {mockData>duration_minutes} min" class="sapUiSmallMarginBottom"/>
-                                </VBox>
-                            </OverflowToolbar>
-                        </headerToolbar>
-                        <content>
-                            <Text text="{mockData>description}"/>
-                            <VBox items="{mockData>chapters}" class="sapUiSmallMargin">
-                                <items>
-                                    <FlexBox class="AgiListLine">
-                                        <HBox class="AgiTinyMarginVertical" width="100%">
-                                            <HBox class="AgiListNumber"/>
-                                            <HBox justifyContent="SpaceBetween" width="15rem">
-                                                <Link
-                                                    text="{mockData>title}"
-                                                    emphasized="true"
-                                                    press=".onChapterPress"/>
-                                                <Text text="Dauer: {mockData>duration_minutes} min"/>
-                                            </HBox>
-                                        </HBox>
-                                    </FlexBox>
-                                </items>
-                            </VBox>
-                        </content>
-                    </Panel>
+                    <HBox class="AgiListLineBig sapUiMediumMarginBegin sapUiMediumMarginEnd" width="100%" alignItems="Stretch" fitContainer="true">
+                        <HBox class="AgiListNumberBig"/>
+                        <VBox width="100%" class="sapUiMediumMarginEnd">
+                            <layoutData>
+                                <FlexItemData growFactor="1" shrinkFactor="1" baseSize="0"/>
+                            </layoutData>
+                            <Panel expandable="true" width="100%" >
+                                <headerToolbar>
+                                    <OverflowToolbar style="Clear" height="5rem">
+                                        <VBox>
+                                            <Title text="{mockData>title}" class="sapUiSmallMarginTop"/>
+                                            <Text text="Dauer: {mockData>duration_minutes} min" class="sapUiSmallMarginBottom"/>
+                                        </VBox>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <content>
+                                    <Text text="{mockData>description}"/>
+                                    <VBox items="{mockData>chapters}" class="sapUiSmallMargin">
+                                        <items>
+                                            <FlexBox class="AgiListLine">
+                                                <HBox class="AgiTinyMarginVertical" width="100%">
+                                                    <HBox class="AgiListNumber"/>
+                                                    <HBox justifyContent="SpaceBetween" width="15rem">
+                                                        <Link
+                                                            text="{mockData>title}"
+                                                            emphasized="true"
+                                                            press=".onChapterPress"/>
+                                                        <Text text="Dauer: {mockData>duration_minutes} min"/>
+                                                    </HBox>
+                                                </HBox>
+                                            </FlexBox>
+                                        </items>
+                                    </VBox>
+                                </content>
+                            </Panel>
+                        </VBox>
+                    </HBox>
                 </items>
             </VBox>
         </content>
