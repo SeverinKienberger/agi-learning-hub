@@ -2,12 +2,14 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:tnt="sap.tnt"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
     controllerName="ui5.agi_learning_hub.controller.Chapter"
     height="100%">
 
     <tnt:ToolPage id="toolPage">
         <tnt:sideContent>
-            <tnt:SideNavigation expanded="true" selectedKey="home" itemSelect="onItemSelect">
+            <tnt:SideNavigation expanded="true" selectedKey="" itemSelect="onItemSelect">
                 <tnt:item>
                     <tnt:NavigationList items="{mockData>units}">
                         <tnt:NavigationListItem items="{mockData>chapters}" key="{mockData>id}" text="{mockData>title}">
@@ -19,7 +21,7 @@
         </tnt:sideContent>
         <tnt:mainContents>
             <Page id="chapterDetails" showHeader="false">
-                <Title text="{mockData>title}"/>
+                <core:HTML id="chapterHtml"/>
             </Page>
         </tnt:mainContents>
     </tnt:ToolPage>

@@ -41,7 +41,8 @@
                                                         <Link
                                                             text="{mockData>title}"
                                                             emphasized="true"
-                                                            press=".onChapterPress"/>
+                                                            press=".onChapterPress">
+                                                        </Link>
                                                         <Text text="Dauer: {mockData>duration_minutes} min"/>
                                                     </HBox>
                                                 </HBox>

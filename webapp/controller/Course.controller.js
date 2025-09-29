@@ -15,22 +15,29 @@ sap.ui.define([
 
         _onCourseMatched: function (oEvent) {
             const sId = oEvent.getParameter("arguments").id;
-            const oMD = this.getOwnerComponent().getModel("mockData");
-            const a   = oMD.getProperty("/master_data/courses") || [];
-            const i   = a.findIndex(c => c.id === sId);
+            const oModel = this.getOwnerComponent().getModel("mockData");
+            const aCourses   = oModel.getProperty("/master_data/courses") || [];
+            const iCourse   = aCourses.findIndex(c => c.id === sId);
 
             this.getView().bindElement({
             model: "mockData",
-            path: `/master_data/courses/${i}`
+            path: `/master_data/courses/${iCourse}`
             });
         },
 
         onChapterPress: function (oEvent) {
             const oItem = oEvent.getSource();
             const oChapter = oItem.getBindingContext("mockData").getObject();
+
             const sChapterId = oChapter.id;
             const sCourseId = this.getView().getBindingContext("mockData").getProperty("id");
-            this.getOwnerComponent().getRouter().navTo("chapter", { courseId: sCourseId, chapterId: sChapterId });
+
+            const oContext = oItem.getBindingContext("mockData");
+            const sPath = oContext.getPath();
+            const sUnitPath = sPath.split("/chapters/")[0];
+            const sUnitId = oContext.getModel().getProperty(sUnitPath + "/id");
+
+            this.getOwnerComponent().getRouter().navTo("chapter", { courseId: sCourseId, unitId: sUnitId, chapterId: sChapterId });
         }
     });
 });
