@@ -1,11 +1,11 @@
 <mvc:View
-	xmlns="sap.m"
+    xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc">
     <Page
         showHeader="false">
         <content>
-            <Text text="BrowseLearning Seite"/>
+            <Text text="{i18n>browseLearningsPageTitle}" />
         </content>
     </Page>
 </mvc:View>

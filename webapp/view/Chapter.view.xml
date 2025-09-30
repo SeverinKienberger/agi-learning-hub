@@ -12,7 +12,7 @@
                 <item>
                     <NavigationList items="{units}">
                         <NavigationListItem items="{chapters}" key="{id}" text="{title}">
-                            <NavigationListItem text="{title}" key="{id}"  select=".onChapterPress"/>
+                            <NavigationListItem text="{title}" key="{id}" select=".onChapterPress" />
                         </NavigationListItem>
                     </NavigationList>
                 </item>
@@ -20,7 +20,7 @@
         </sideContent>
         <mainContents>
             <m:Page id="chapterDetails" showHeader="false">
-                <core:HTML id="chapterHtml"/>
+                <core:HTML id="chapterHtml" />
             </m:Page>
         </mainContents>
     </ToolPage>

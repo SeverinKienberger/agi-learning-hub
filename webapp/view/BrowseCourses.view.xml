@@ -4,15 +4,16 @@
     xmlns:f="sap.f"
     xmlns:core="sap.ui.core"
     xmlns:grid="sap.ui.layout.cssgrid"
-  	controllerName="ui5.agi_learning_hub.controller.BrowseCourses">
+    controllerName="ui5.agi_learning_hub.controller.BrowseCourses">
 
     <ScrollContainer height="100%" vertical="true" horizontal="false">
         <VBox alignItems="Center" backgroundDesign="Solid">
-            <Title text="Kurse" wrapping="true" class="AgiHeader1"/>
+            <Title text="{i18n>coursePageTitle}" wrapping="true" class="AgiHeader1" />
         </VBox>
         <VBox alignItems="Stretch" class="AgiGridListContainer">
             <Toolbar design="Transparent" class="AgiFilterBar">
-                <SearchField id="search" width="25%" search=".onFilterCourses" class="AgiFilterElement"/>
+                <SearchField id="search" width="25%" search=".onFilterCourses"
+                    class="AgiFilterElement" />
                 <MultiComboBox
                     width="25%"
                     placeholder="Level"
@@ -21,8 +22,8 @@
                     items="{
                         path: '/master_data/levels'
                     }">
-                    <core:Item key="{id}" text="{title}"/>
-                </MultiComboBox> <!--Filter, mit filterItems direkt aus dem Model :)-->
+                    <core:Item key="{id}" text="{title}" />
+                </MultiComboBox>
             </Toolbar>
             <f:GridList
                 id="gridList"
@@ -30,22 +31,25 @@
                 itemPress=".onCoursePress"
                 class="AgiGridList">
                 <f:customLayout>
-                    <grid:GridBoxLayout boxMinWidth="15rem"/>
+                    <grid:GridBoxLayout boxMinWidth="15rem" />
                 </f:customLayout>
                 <f:GridListItem type="Active">
-                    <VBox class="sapUiSmallMargin" justifyContent="SpaceBetween" height="calc(100% - 30px)">
+                    <VBox class="sapUiSmallMargin" justifyContent="SpaceBetween"
+                        height="calc(100% - 30px)">
                         <layoutData>
-                            <FlexItemData growFactor="7" shrinkFactor="0"/>
+                            <FlexItemData growFactor="7" shrinkFactor="0" />
                         </layoutData>
-                        <Text text="Kurs"/>
-                        <Title text="{title}" wrapping="true"/>
-                        <Text text="{description}" wrapping="true"/>
+                        <Text text="{i18n>course}" />
+                        <Title text="{title}" wrapping="true" />
+                        <Text text="{description}" wrapping="true" />
                         <HBox justifyContent="SpaceBetween" width="100%" class="sapUiSmallMarginTop">
-                            <Text text="{ path: 'level_id', formatter: '.LevelFormatter'}" wrapping="true"/>
-                            <Text text="{= ( ${total_duration_minutes} - ${total_duration_minutes} % 60 ) / 60
+                            <Text text="{ path: 'level_id', formatter: '.LevelFormatter'}"
+                                wrapping="true" />
+                            <Text
+                                text="{= ( ${total_duration_minutes} - ${total_duration_minutes} % 60 ) / 60
                                             + ' h ' +
                                         ( ${total_duration_minutes} % 60 ) + ' min' }"
-                                wrapping="false"/>
+                                wrapping="false" />
                         </HBox>
                     </VBox>
                 </f:GridListItem>

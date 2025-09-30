@@ -1,49 +1,54 @@
 <mvc:View
-	xmlns="sap.m"
+    xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mvc="sap.ui.core.mvc"
     controllerName="ui5.agi_learning_hub.controller.Course">
     <Page
         showHeader="false">
         <content>
             <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
-                <Title text="{title}" wrapping="true" class="AgiHeader2"/>
-                <Button text="Kurs Fortsetzen"/>
+                <Title text="{title}" wrapping="true" class="AgiHeader2" />
+                <Button text="{i18n>continueLearningCourse}" />
             </VBox>
             <VBox
                 items="{units}"
                 class="sapUiResponsiveMargin"
                 width="auto">
                 <items>
-                    <HBox class="AgiListLineBig sapUiMediumMarginBegin sapUiMediumMarginEnd" width="100%" alignItems="Stretch" fitContainer="true">
-                        <HBox class="AgiListNumberBig"/>
+                    <HBox class="AgiListLineBig sapUiMediumMarginBegin sapUiMediumMarginEnd"
+                        width="100%" alignItems="Stretch" fitContainer="true">
+                        <HBox class="AgiListNumberBig" />
                         <VBox width="100%" class="sapUiMediumMarginEnd">
                             <layoutData>
-                                <FlexItemData growFactor="1" shrinkFactor="1" baseSize="0"/>
+                                <FlexItemData growFactor="1" shrinkFactor="1" baseSize="0" />
                             </layoutData>
-                            <Panel expandable="true" width="100%" >
+                            <Panel expandable="true" width="100%">
                                 <headerToolbar>
                                     <OverflowToolbar style="Clear" height="5rem">
                                         <VBox>
-                                            <Title text="{title}" class="sapUiSmallMarginTop"/>
-                                            <Text text="Dauer: {duration_minutes} min" class="sapUiSmallMarginBottom"/>
+                                            <Title text="{title}" class="sapUiSmallMarginTop" />
+                                            <Text
+                                                text="{i18n>duration} {duration_minutes} {i18n>minutesShort}"
+                                                class="sapUiSmallMarginBottom" />
                                         </VBox>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <content>
-                                    <Text text="{description}"/>
+                                    <Text text="{description}" />
                                     <VBox items="{chapters}" class="sapUiSmallMargin">
                                         <items>
                                             <FlexBox class="AgiListLine">
                                                 <HBox class="AgiTinyMarginVertical" width="100%">
-                                                    <HBox class="AgiListNumber"/>
-                                                    <HBox justifyContent="SpaceBetween" width="15rem">
+                                                    <HBox class="AgiListNumber" />
+                                                    <HBox justifyContent="SpaceBetween"
+                                                        width="15rem">
                                                         <Link
                                                             text="{title}"
                                                             emphasized="true"
                                                             press=".onChapterPress">
                                                         </Link>
-                                                        <Text text="Dauer: {duration_minutes} min"/>
+                                                        <Text
+                                                            text="{i18n>duration} {duration_minutes} {i18n>minutesShort}" />
                                                     </HBox>
                                                 </HBox>
                                             </FlexBox>

@@ -1,11 +1,11 @@
 <mvc:View
-	xmlns="sap.m"
+    xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc">
     <Page
         showHeader="false">
         <content>
-            <Text text="MyBadges Seite"/>
+            <Text text="{i18n>myBadgesPageTitle}" />
         </content>
     </Page>
 </mvc:View>

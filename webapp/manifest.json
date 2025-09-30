@@ -1,158 +1,158 @@
 {
-	"_version": "1.65.0",
-	"sap.app": {
-		"id": "ui5.agi_learning_hub",
-		"i18n": "i18n/i18n.properties",
-		"title": "{{appTitle}}",
-		"description": "{{appDescription}}",
-		"type": "application",
-		"applicationVersion": {
-		"version": "1.0.0"
-		}
-	},
-	"sap.ui": {
-		"technology": "UI5",
-		"deviceTypes": {
-			"desktop": true,
-			"tablet": true,
-			"phone": true
-		}
-	},
-	"sap.ui5": {
-		"dependencies": {
-		"minUI5Version": "1.65.0",
-		"libs": {
-			"sap.ui.core": {},
-			"sap.m": {},
-			"sap.ui.layout": {},
-			"sap.f": {}
-		}
-		},
-		"models": {
-			"i18n": {
-				"type": "sap.ui.model.resource.ResourceModel",
-				"settings": {
-				"bundleName": "ui5.agi_learning_hub.i18n.i18n",
-				"supportedLocales": [""],
-				"fallbackLocale": ""
-				}
-			},
-			"": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/MockData.json"
-			}
-		},
-		"rootView": {
-			"viewName": "ui5.agi_learning_hub.view.App",
-			"type": "XML",
-			"id": "app"
-		},
-		"resources": {
-			"css": [
-				{
-				"uri": "css/style.css"
-				}
-			]
-		},
-		"routing": {
-			"config": {
-				"routerClass": "sap.m.routing.Router",
-				"type": "View",
-				"viewType": "XML",
-				"path": "ui5.agi_learning_hub.view",
-				"controlId": "app",
-				"controlAggregation": "pages"
-			},
-			"routes": [
-				{
-				"pattern": "",
-				"name": "home",
-				"target": "landing"
-				},
-				{
-				"pattern": "landing",
-				"name": "landing",
-				"target": "landing"
-				},
-				{
-				"pattern": "myLearning",
-				"name": "myLearning",
-				"target": "myLearning"
-				},
-				{
-				"pattern": "browseCourses",
-				"name": "browseCourses",
-				"target": "browseCourses"
-				},
-				{
-				"pattern": "course/{id}",
-				"name": "course",
-				"target": "course"
-				},
-				{
-				"pattern": "course/{courseId}/unit/{unitId}/chapter/{chapterId}",
-				"name": "chapter",
-				"target": "chapter"
-				},
-				{
-				"pattern": "browseLearnings",
-				"name": "browseLearnings",
-				"target": "browseLearnings"
-				},
-				{
-				"pattern": "browseAll",
-				"name": "browseAll",
-				"target": "browseAll"
-				},
-				{
-				"pattern": "myBadges",
-				"name": "myBadges",
-				"target": "myBadges"
-				},
-				{
-				"pattern": "myCertificates",
-				"name": "myCertificates",
-				"target": "myCertificates"
-				}
-			],
-			"targets": {
-				"landing": {
-				"id": "landing",
-				"name": "Landing"
-				},
-				"myLearning": {
-				"id": "myLearning",
-				"name": "MyLearning"
-				},
-				"browseCourses": {
-				"id": "browseCourses",
-				"name": "BrowseCourses"
-				},
-				"course": {
-				"id": "course",
-				"name": "Course"
-				},
-				"chapter": {
-				"id": "chapter",
-				"name": "Chapter"
-				},
-				"browseLearnings": {
-				"id": "browseLearnings",
-				"name": "BrowseLearnings"
-				},
-				"browseAll": {
-				"id": "browseAll",
-				"name": "BrowseAll"
-				},
-				"myBadges": {
-				"id": "myBadges",
-				"name": "MyBadges"
-				},
-				"myCertificates": {
-				"id": "myCertificates",
-				"name": "MyCertificates"
-				}
-			}
-		}
-	}
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "ui5.agi_learning_hub",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "type": "application",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.65.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {},
+        "sap.f": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ui5.agi_learning_hub.i18n.i18n",
+          "supportedLocales": [""],
+          "fallbackLocale": ""
+        }
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/MockData.json"
+      }
+    },
+    "rootView": {
+      "viewName": "ui5.agi_learning_hub.view.App",
+      "type": "XML",
+      "id": "app"
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "ui5.agi_learning_hub.view",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "home",
+          "target": "landing"
+        },
+        {
+          "pattern": "landing",
+          "name": "landing",
+          "target": "landing"
+        },
+        {
+          "pattern": "myLearning",
+          "name": "myLearning",
+          "target": "myLearning"
+        },
+        {
+          "pattern": "browseCourses",
+          "name": "browseCourses",
+          "target": "browseCourses"
+        },
+        {
+          "pattern": "course/{id}",
+          "name": "course",
+          "target": "course"
+        },
+        {
+          "pattern": "course/{courseId}/unit/{unitId}/chapter/{chapterId}",
+          "name": "chapter",
+          "target": "chapter"
+        },
+        {
+          "pattern": "browseLearnings",
+          "name": "browseLearnings",
+          "target": "browseLearnings"
+        },
+        {
+          "pattern": "browseAll",
+          "name": "browseAll",
+          "target": "browseAll"
+        },
+        {
+          "pattern": "myBadges",
+          "name": "myBadges",
+          "target": "myBadges"
+        },
+        {
+          "pattern": "myCertificates",
+          "name": "myCertificates",
+          "target": "myCertificates"
+        }
+      ],
+      "targets": {
+        "landing": {
+          "id": "landing",
+          "name": "Landing"
+        },
+        "myLearning": {
+          "id": "myLearning",
+          "name": "MyLearning"
+        },
+        "browseCourses": {
+          "id": "browseCourses",
+          "name": "BrowseCourses"
+        },
+        "course": {
+          "id": "course",
+          "name": "Course"
+        },
+        "chapter": {
+          "id": "chapter",
+          "name": "Chapter"
+        },
+        "browseLearnings": {
+          "id": "browseLearnings",
+          "name": "BrowseLearnings"
+        },
+        "browseAll": {
+          "id": "browseAll",
+          "name": "BrowseAll"
+        },
+        "myBadges": {
+          "id": "myBadges",
+          "name": "MyBadges"
+        },
+        "myCertificates": {
+          "id": "myCertificates",
+          "name": "MyCertificates"
+        }
+      }
+    }
+  }
 }

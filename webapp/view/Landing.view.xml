@@ -1,12 +1,12 @@
 <mvc:View
-	xmlns="sap.m"
+    xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:mvc="sap.ui.core.mvc"
     controllerName="ui5.agi_learning_hub.controller.Landing">
     <Page
         showHeader="false">
         <content>
-            <Text text="Landing Page"/>
+            <Text text="{i18n>landingPageTitle}" />
         </content>
     </Page>
 </mvc:View>
