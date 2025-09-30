@@ -16,7 +16,7 @@ sap.ui.define(
         this._aLevelKeys = [];
       },
 
-      LevelFormatter(id) {
+      formatLevel(id) {
         const oMasteData = this.oModel.getProperty("/master_data");
         const oFilter = oMasteData.levels.filter((l) => {
           return l.id === id;
