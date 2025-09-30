@@ -14,8 +14,8 @@ sap.ui.define(
 
       onChapterPress: function (oEvent) {
         const oItem = oEvent.getParameter("item") || oEvent.getSource();
-        const oContext = oItem?.getBindingContext?.();
-        const sPath = oContext?.getPath?.();
+        const oContext = oItem.getBindingContext();
+        const sPath = oContext.getPath();
 
         this.byId("chapterDetails").bindElement({
           path: sPath,
