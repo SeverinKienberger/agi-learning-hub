@@ -14,12 +14,14 @@ sap.ui.define(
           .getRouter()
           .getRoute("course")
           .attachPatternMatched(this._onCourseMatched, this);
+
+        this.oModel = this.getOwnerComponent().getModel();
+        this.oRouter = this.getOwnerComponent().getRouter();
       },
 
       _onCourseMatched: function (oEvent) {
         const sId = oEvent.getParameter("arguments").id;
-        const oModel = this.getOwnerComponent().getModel();
-        const aCourses = oModel.getProperty("/master_data/courses") || [];
+        const aCourses = this.oModel.getProperty("/master_data/courses") || [];
         const iCourse = aCourses.findIndex((c) => c.id === sId);
 
         this.getView().bindElement({
@@ -39,13 +41,11 @@ sap.ui.define(
         const sUnitPath = sPath.split("/chapters/")[0];
         const sUnitId = oContext.getModel().getProperty(sUnitPath + "/id");
 
-        this.getOwnerComponent()
-          .getRouter()
-          .navTo("chapter", {
-            courseId: sCourseId,
-            unitId: sUnitId,
-            chapterId: sChapterId,
-          });
+        this.oRouter.navTo("chapter", {
+          courseId: sCourseId,
+          unitId: sUnitId,
+          chapterId: sChapterId,
+        });
       },
     });
   }

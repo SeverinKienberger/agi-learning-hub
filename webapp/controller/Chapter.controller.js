@@ -9,6 +9,7 @@ sap.ui.define(
           .getRouter()
           .getRoute("chapter")
           .attachPatternMatched(this._onChapterMatched, this);
+        this.oModel = this.getOwnerComponent().getModel();
       },
 
       _onChapterMatched: function (oEvent) {
@@ -16,17 +17,16 @@ sap.ui.define(
         const sUnitId = oEvent.getParameter("arguments").unitId;
         const sChapterId = oEvent.getParameter("arguments").chapterId;
 
-        const oModel = this.getOwnerComponent().getModel();
-
-        const aCourses = oModel.getProperty("/master_data/courses") || [];
+        const aCourses = this.oModel.getProperty("/master_data/courses") || [];
         const iCourse = aCourses.findIndex((c) => c.id === sCourseId);
 
         const aUnits =
-          oModel.getProperty(`/master_data/courses/${iCourse}/units`) || [];
+          this.oModel.getProperty(`/master_data/courses/${iCourse}/units`) ||
+          [];
         const iUnit = aUnits.findIndex((c) => c.id === sUnitId);
 
         const aChapters =
-          oModel.getProperty(
+          this.oModel.getProperty(
             `/master_data/courses/${iCourse}/units/${iUnit}/chapters`
           ) || [];
         const iChapter = aChapters.findIndex((c) => c.id === sChapterId);
@@ -45,7 +45,7 @@ sap.ui.define(
         const oHtml = this.byId("chapterHtml");
         oHtml.setContent("");
         oHtml.setContent(
-          oModel.getProperty(
+          this.oModel.getProperty(
             `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}/content_html`
           ) || ""
         );

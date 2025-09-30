@@ -9,9 +9,13 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("ui5.agi_learning_hub.controller.BrowseCourses", {
+      onInit: function () {
+        this.oRouter = this.getOwnerComponent().getRouter();
+        this.oModel = this.getOwnerComponent().getModel();
+      },
+
       LevelFormatter(id) {
-        const oModel = this.getOwnerComponent().getModel();
-        const oMasteData = oModel.getProperty("/master_data");
+        const oMasteData = this.oModel.getProperty("/master_data");
         const oLevels = oMasteData.levels;
         const oFilter = oLevels.filter((l) => {
           return l.id === id;
@@ -52,7 +56,7 @@ sap.ui.define(
         const oItem = oEvent.getParameter("listItem");
         const oCourse = oItem.getBindingContext().getObject();
         const sId = oCourse.id;
-        this.getOwnerComponent().getRouter().navTo("course", { id: sId });
+        this.oRouter.navTo("course", { id: sId });
       },
     });
   }

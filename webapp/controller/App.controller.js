@@ -4,14 +4,15 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("ui5.agi_learning_hub.controller.App", {
-      onInit: function () {},
+      onInit: function () {
+        this.oRouter = this.getOwnerComponent().getRouter();
+      },
 
       onTabSelect: function (oEvent) {
         const oSelectedTab = oEvent.getParameter("selectedItem");
         const sSelectedKey = oSelectedTab.getKey();
 
-        const oRouter = this.getOwnerComponent().getRouter();
-        oRouter.navTo(sSelectedKey);
+        this.oRouter.navTo(sSelectedKey);
       },
 
       onNavBack: function (oEvent) {
@@ -21,7 +22,7 @@ sap.ui.define(
         if (sPreviousHash !== undefined) {
           window.history.go(-1);
         } else {
-          this.getOwnerComponent().getRouter().navTo("browseCourses", {}, true);
+          this.oRouter.navTo("browseCourses", {}, true);
         }
       },
     });
