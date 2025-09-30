@@ -37,7 +37,7 @@
 				"fallbackLocale": ""
 				}
 			},
-			"mockData": {
+			"": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/MockData.json"
 			}

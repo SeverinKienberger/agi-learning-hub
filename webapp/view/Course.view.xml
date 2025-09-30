@@ -7,11 +7,11 @@
         showHeader="false">
         <content>
             <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
-                <Title text="{mockData>title}" wrapping="true" class="AgiHeader2"/>
+                <Title text="{title}" wrapping="true" class="AgiHeader2"/>
                 <Button text="Kurs Fortsetzen"/>
             </VBox>
             <VBox
-                items="{mockData>units}"
+                items="{units}"
                 class="sapUiResponsiveMargin"
                 width="auto">
                 <items>
@@ -25,25 +25,25 @@
                                 <headerToolbar>
                                     <OverflowToolbar style="Clear" height="5rem">
                                         <VBox>
-                                            <Title text="{mockData>title}" class="sapUiSmallMarginTop"/>
-                                            <Text text="Dauer: {mockData>duration_minutes} min" class="sapUiSmallMarginBottom"/>
+                                            <Title text="{title}" class="sapUiSmallMarginTop"/>
+                                            <Text text="Dauer: {duration_minutes} min" class="sapUiSmallMarginBottom"/>
                                         </VBox>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <content>
-                                    <Text text="{mockData>description}"/>
-                                    <VBox items="{mockData>chapters}" class="sapUiSmallMargin">
+                                    <Text text="{description}"/>
+                                    <VBox items="{chapters}" class="sapUiSmallMargin">
                                         <items>
                                             <FlexBox class="AgiListLine">
                                                 <HBox class="AgiTinyMarginVertical" width="100%">
                                                     <HBox class="AgiListNumber"/>
                                                     <HBox justifyContent="SpaceBetween" width="15rem">
                                                         <Link
-                                                            text="{mockData>title}"
+                                                            text="{title}"
                                                             emphasized="true"
                                                             press=".onChapterPress">
                                                         </Link>
-                                                        <Text text="Dauer: {mockData>duration_minutes} min"/>
+                                                        <Text text="Dauer: {duration_minutes} min"/>
                                                     </HBox>
                                                 </HBox>
                                             </FlexBox>

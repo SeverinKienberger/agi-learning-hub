@@ -19,14 +19,14 @@
                     class="AgiFilterElement"
                     selectionChange=".onFilterLevel"
                     items="{
-                        path: 'mockData>/master_data/levels'
+                        path: '/master_data/levels'
                     }">
-                    <core:Item key="{mockData>id}" text="{mockData>title}"/>
+                    <core:Item key="{id}" text="{title}"/>
                 </MultiComboBox> <!--Filter, mit filterItems direkt aus dem Model :)-->
             </Toolbar>
             <f:GridList
                 id="gridList"
-                items="{mockData>/master_data/courses}"
+                items="{/master_data/courses}"
                 itemPress=".onCoursePress"
                 class="AgiGridList">
                 <f:customLayout>
@@ -38,13 +38,13 @@
                             <FlexItemData growFactor="7" shrinkFactor="0"/>
                         </layoutData>
                         <Text text="Kurs"/>
-                        <Title text="{mockData>title}" wrapping="true"/>
-                        <Text text="{mockData>description}" wrapping="true"/>
+                        <Title text="{title}" wrapping="true"/>
+                        <Text text="{description}" wrapping="true"/>
                         <HBox justifyContent="SpaceBetween" width="100%" class="sapUiSmallMarginTop">
-                            <Text text="{ path: 'mockData>level_id', formatter: '.LevelFormatter'}" wrapping="true"/>
-                            <Text text="{= ( ${mockData>total_duration_minutes} - ${mockData>total_duration_minutes} % 60 ) / 60
+                            <Text text="{ path: 'level_id', formatter: '.LevelFormatter'}" wrapping="true"/>
+                            <Text text="{= ( ${total_duration_minutes} - ${total_duration_minutes} % 60 ) / 60
                                             + ' h ' +
-                                        ( ${mockData>total_duration_minutes} % 60 ) + ' min' }"
+                                        ( ${total_duration_minutes} % 60 ) + ' min' }"
                                 wrapping="false"/>
                         </HBox>
                     </VBox>

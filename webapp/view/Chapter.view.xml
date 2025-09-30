@@ -11,9 +11,9 @@
         <tnt:sideContent>
             <tnt:SideNavigation expanded="true" selectedKey="" itemSelect="onItemSelect">
                 <tnt:item>
-                    <tnt:NavigationList items="{mockData>units}">
-                        <tnt:NavigationListItem items="{mockData>chapters}" key="{mockData>id}" text="{mockData>title}">
-                            <tnt:NavigationListItem text="{mockData>title}" key="{mockData>id}"  select=".onChapterPress"/>
+                    <tnt:NavigationList items="{units}">
+                        <tnt:NavigationListItem items="{chapters}" key="{id}" text="{title}">
+                            <tnt:NavigationListItem text="{title}" key="{id}"  select=".onChapterPress"/>
                         </tnt:NavigationListItem>
                     </tnt:NavigationList>
                 </tnt:item>

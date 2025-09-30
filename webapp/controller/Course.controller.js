@@ -15,24 +15,24 @@ sap.ui.define([
 
         _onCourseMatched: function (oEvent) {
             const sId = oEvent.getParameter("arguments").id;
-            const oModel = this.getOwnerComponent().getModel("mockData");
+            const oModel = this.getOwnerComponent().getModel();
             const aCourses   = oModel.getProperty("/master_data/courses") || [];
             const iCourse   = aCourses.findIndex(c => c.id === sId);
 
             this.getView().bindElement({
-            model: "mockData",
+            
             path: `/master_data/courses/${iCourse}`
             });
         },
 
         onChapterPress: function (oEvent) {
             const oItem = oEvent.getSource();
-            const oChapter = oItem.getBindingContext("mockData").getObject();
+            const oChapter = oItem.getBindingContext().getObject();
 
             const sChapterId = oChapter.id;
-            const sCourseId = this.getView().getBindingContext("mockData").getProperty("id");
+            const sCourseId = this.getView().getBindingContext().getProperty("id");
 
-            const oContext = oItem.getBindingContext("mockData");
+            const oContext = oItem.getBindingContext();
             const sPath = oContext.getPath();
             const sUnitPath = sPath.split("/chapters/")[0];
             const sUnitId = oContext.getModel().getProperty(sUnitPath + "/id");

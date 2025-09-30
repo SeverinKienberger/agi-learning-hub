@@ -16,7 +16,7 @@ sap.ui.define([
          const sUnitId = oEvent.getParameter("arguments").unitId;
          const sChapterId = oEvent.getParameter("arguments").chapterId;
 
-         const oModel = this.getOwnerComponent().getModel("mockData");
+         const oModel = this.getOwnerComponent().getModel();
 
          const aCourses   = oModel.getProperty("/master_data/courses") || [];
          const iCourse   = aCourses.findIndex(c => c.id === sCourseId);
@@ -31,12 +31,12 @@ sap.ui.define([
          oSideNav.setSelectedKey(sChapterId);
 
          this.getView().bindElement({
-         model: "mockData",
+         
          path: `/master_data/courses/${iCourse}`
          });
 
          this.byId("chapterDetails").bindElement({
-         model: "mockData",
+         
          path: `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`
          });
 
@@ -49,11 +49,11 @@ sap.ui.define([
 
       onChapterPress: function (oEvent) {       
          const oItem = oEvent.getParameter("item") || oEvent.getSource();
-         const oContext  = oItem?.getBindingContext?.("mockData");
+         const oContext  = oItem?.getBindingContext?.();
          const sPath = oContext?.getPath?.();
 
          this.byId("chapterDetails").bindElement({
-            model: "mockData",
+            
             path: sPath
          })
 
