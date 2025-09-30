@@ -18,8 +18,8 @@ sap.ui.define(
 
       formatLevel(id) {
         const oMasteData = this.oModel.getProperty("/master_data");
-        const oFilter = oMasteData.levels.filter((l) => {
-          return l.id === id;
+        const oFilter = oMasteData.levels.filter((oLevel) => {
+          return oLevel.id === id;
         });
         return oFilter[0].title;
       },
