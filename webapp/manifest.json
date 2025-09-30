@@ -118,48 +118,39 @@
 			"targets": {
 				"landing": {
 				"id": "landing",
-				"name": "Landing",
-				"viewLevel": 1
+				"name": "Landing"
 				},
 				"myLearning": {
 				"id": "myLearning",
-				"name": "MyLearning",
-				"viewLevel": 2
+				"name": "MyLearning"
 				},
 				"browseCourses": {
 				"id": "browseCourses",
-				"name": "BrowseCourses",
-				"viewLevel": 3
+				"name": "BrowseCourses"
 				},
 				"course": {
 				"id": "course",
-				"name": "Course",
-				"viewLevel": 4
+				"name": "Course"
 				},
 				"chapter": {
 				"id": "chapter",
-				"name": "Chapter",
-				"viewLevel": 5
+				"name": "Chapter"
 				},
 				"browseLearnings": {
 				"id": "browseLearnings",
-				"name": "BrowseLearnings",
-				"viewLevel": 4
+				"name": "BrowseLearnings"
 				},
 				"browseAll": {
 				"id": "browseAll",
-				"name": "BrowseAll",
-				"viewLevel": 5
+				"name": "BrowseAll"
 				},
 				"myBadges": {
 				"id": "myBadges",
-				"name": "MyBadges",
-				"viewLevel": 6
+				"name": "MyBadges"
 				},
 				"myCertificates": {
 				"id": "myCertificates",
-				"name": "MyCertificates",
-				"viewLevel": 7
+				"name": "MyCertificates"
 				}
 			}
 		}
