@@ -4,9 +4,7 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("ui5.agi_learning_hub.controller.App", {
-      onInit: function () {
-        this.getOwnerComponent().getRouter().initialize();
-      },
+      onInit: function () {},
 
       onTabSelect: function (oEvent) {
         const oSelectedTab = oEvent.getParameter("selectedItem");
