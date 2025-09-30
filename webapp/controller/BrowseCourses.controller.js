@@ -12,16 +12,16 @@ sap.ui.define(
       onInit: function () {
         this.oRouter = this.getOwnerComponent().getRouter();
         this.oModel = this.getOwnerComponent().getModel();
+        this._sQuery = "";
+        this._aLevelKeys = [];
       },
 
       LevelFormatter(id) {
         const oMasteData = this.oModel.getProperty("/master_data");
-        const oLevels = oMasteData.levels;
-        const oFilter = oLevels.filter((l) => {
+        const oFilter = oMasteData.levels.filter((l) => {
           return l.id === id;
         });
-        const LevelTitle = oFilter[0].title;
-        return LevelTitle;
+        return oFilter[0].title;
       },
 
       onFilterCourses: function (oEvent) {
@@ -45,7 +45,7 @@ sap.ui.define(
 
         if (this._aLevelKeys.length > 0) {
           const aLevelFilters = this._aLevelKeys.map(
-            (k) => new Filter("level_id", FilterOperator.EQ, k)
+            (sKey) => new Filter("level_id", FilterOperator.EQ, sKey)
           );
           aFilters.push(new Filter({ filters: aLevelFilters, and: false }));
         }
@@ -53,9 +53,8 @@ sap.ui.define(
       },
 
       onCoursePress: function (oEvent) {
-        const oItem = oEvent.getParameter("listItem");
-        const oCourse = oItem.getBindingContext().getObject();
-        const sId = oCourse.id;
+        const oContext = oEvent.getParameter("listItem").getBindingContext();
+        const sId = oContext.getObject().id;
         this.oRouter.navTo("course", { id: sId });
       },
     });

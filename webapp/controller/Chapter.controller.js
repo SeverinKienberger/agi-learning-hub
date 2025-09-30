@@ -12,24 +12,34 @@ sap.ui.define(
         this.oModel = this.getOwnerComponent().getModel();
       },
 
+      _findCourseIndex(sCourseId) {
+        const aCourses = this.oModel.getProperty("/master_data/courses") || [];
+        return aCourses.findIndex((c) => c.id === sCourseId);
+      },
+
+      _findUnitIndex(iCourse, sUnitId) {
+        const aUnits =
+          this.oModel.getProperty(`/master_data/courses/${iCourse}/units`) ||
+          [];
+        return aUnits.findIndex((u) => u.id === sUnitId);
+      },
+
+      _findChapterIndex(iCourse, iUnit, sChapterId) {
+        const aChapters =
+          this.oModel.getProperty(
+            `/master_data/courses/${iCourse}/units/${iUnit}/chapters`
+          ) || [];
+        return aChapters.findIndex((ch) => ch.id === sChapterId);
+      },
+
       _onChapterMatched: function (oEvent) {
         const sCourseId = oEvent.getParameter("arguments").courseId;
         const sUnitId = oEvent.getParameter("arguments").unitId;
         const sChapterId = oEvent.getParameter("arguments").chapterId;
 
-        const aCourses = this.oModel.getProperty("/master_data/courses") || [];
-        const iCourse = aCourses.findIndex((c) => c.id === sCourseId);
-
-        const aUnits =
-          this.oModel.getProperty(`/master_data/courses/${iCourse}/units`) ||
-          [];
-        const iUnit = aUnits.findIndex((c) => c.id === sUnitId);
-
-        const aChapters =
-          this.oModel.getProperty(
-            `/master_data/courses/${iCourse}/units/${iUnit}/chapters`
-          ) || [];
-        const iChapter = aChapters.findIndex((c) => c.id === sChapterId);
+        const iCourse = this._findCourseIndex(sCourseId);
+        const iUnit = this._findUnitIndex(iCourse, sUnitId);
+        const iChapter = this._findChapterIndex(iCourse, iUnit, sChapterId);
 
         const oSideNav = this.byId("toolPage").getSideContent();
         oSideNav.setSelectedKey(sChapterId);

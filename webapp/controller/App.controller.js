@@ -9,15 +9,13 @@ sap.ui.define(
       },
 
       onTabSelect: function (oEvent) {
-        const oSelectedTab = oEvent.getParameter("selectedItem");
-        const sSelectedKey = oSelectedTab.getKey();
-
+        const sSelectedKey = oEvent.getParameter("selectedItem").getKey();
         this.oRouter.navTo(sSelectedKey);
       },
 
       onNavBack: function (oEvent) {
-        const oHistory = sap.ui.core.routing.History.getInstance();
-        const sPreviousHash = oHistory.getPreviousHash();
+        const sPreviousHash =
+          sap.ui.core.routing.History.getInstance().getPreviousHash();
 
         if (sPreviousHash !== undefined) {
           window.history.go(-1);
