@@ -40,7 +40,6 @@ sap.ui.define(
         }
 
         if (this._aLevelKeys.length > 0) {
-          //Fehlerbehebung, damit, wenn man die Filter entfernt wieder alle Daten Kommen
           const aLevelFilters = this._aLevelKeys.map(
             (k) => new Filter("level_id", FilterOperator.EQ, k)
           );
