@@ -5,7 +5,6 @@
     <Page
         showHeader="false">
         <content>
-            <Text text="{i18n>browseLearningsPageTitle}" />
         </content>
     </Page>
 </mvc:View>
