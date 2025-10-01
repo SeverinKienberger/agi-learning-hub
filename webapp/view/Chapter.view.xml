@@ -20,7 +20,10 @@
         </sideContent>
         <mainContents>
             <m:Page id="chapterDetails" showHeader="false">
-                <core:HTML id="chapterHtml" />
+                <m:HBox class="sapUiSmallMargin" width="100%">
+                    <core:HTML id="chapterHtml">
+                    </core:HTML>
+                </m:HBox>
             </m:Page>
         </mainContents>
     </ToolPage>
