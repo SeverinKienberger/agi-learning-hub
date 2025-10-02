@@ -100,6 +100,11 @@
           "target": "browseJourneys"
         },
         {
+          "pattern": "journey/{id}",
+          "name": "journey",
+          "target": "journey"
+        },
+        {
           "pattern": "browseAll",
           "name": "browseAll",
           "target": "browseAll"
@@ -139,6 +144,10 @@
         "browseJourneys": {
           "id": "browseJourneys",
           "name": "BrowseJourneys"
+        },
+        "journey": {
+          "id": "journey",
+          "name": "Journey"
         },
         "browseAll": {
           "id": "browseAll",
