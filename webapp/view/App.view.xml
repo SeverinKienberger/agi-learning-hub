@@ -23,7 +23,7 @@
 				<IconTabFilter key="browse" id="browseTab" text="{i18n>browsePageTitle}">
 					<items>
 						<IconTabFilter key="browseCourses" text="{i18n>browseCoursesPageTitle}" />
-						<IconTabFilter key="browseLearnings" text="{i18n>browseLearningsPageTitle}" />
+						<IconTabFilter key="browseJourneys" text="{i18n>browseJourneysPageTitle}" />
 					</items>
 				</IconTabFilter>
 				<IconTabFilter key="mySuccess" id="mySuccessTab" text="{i18n>mySuccessPageTitle}">

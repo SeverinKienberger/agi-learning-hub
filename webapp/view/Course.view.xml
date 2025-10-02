@@ -8,7 +8,7 @@
         <content>
             <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
                 <Title text="{title}" wrapping="true" class="AgiHeader2" />
-                <Button text="{i18n>continueLearningCourse}" />
+                <Button text="{i18n>continueJourneyCourse}" />
             </VBox>
             <VBox
                 items="{units}"

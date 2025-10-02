@@ -95,9 +95,9 @@
           "target": "chapter"
         },
         {
-          "pattern": "browseLearnings",
-          "name": "browseLearnings",
-          "target": "browseLearnings"
+          "pattern": "browseJourneys",
+          "name": "browseJourneys",
+          "target": "browseJourneys"
         },
         {
           "pattern": "browseAll",
@@ -136,9 +136,9 @@
           "id": "chapter",
           "name": "Chapter"
         },
-        "browseLearnings": {
-          "id": "browseLearnings",
-          "name": "BrowseLearnings"
+        "browseJourneys": {
+          "id": "browseJourneys",
+          "name": "BrowseJourneys"
         },
         "browseAll": {
           "id": "browseAll",

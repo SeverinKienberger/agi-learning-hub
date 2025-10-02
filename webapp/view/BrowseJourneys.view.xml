@@ -14,6 +14,16 @@
             <Toolbar design="Transparent" class="AgiFilterBar">
                 <SearchField id="journeySearch" width="25%" search=".onFilterJourneys"
                     class="AgiFilterElement" />
+                <MultiComboBox
+                    width="25%"
+                    placeholder="{i18n>categoryPlaceholder}"
+                    class="AgiFilterElement"
+                    selectionChange=".onFilterCategory"
+                    items="{
+                        path: '/master_data/categories'
+                    }">
+                    <core:Item key="{id}" text="{title}" />
+                </MultiComboBox>
             </Toolbar>
             <f:GridList
                 id="journeyGridList"

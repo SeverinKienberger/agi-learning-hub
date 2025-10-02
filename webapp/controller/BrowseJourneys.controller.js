@@ -13,10 +13,16 @@ sap.ui.define(
         this.oRouter = this.getOwnerComponent().getRouter();
         this.oModel = this.getOwnerComponent().getModel();
         this._sQuery = "";
+        this._aCategoryKeys = [];
       },
 
       onFilterJourneys: function (oEvent) {
         this._sQuery = oEvent.getParameter("query").trim();
+        this.applyFilter();
+      },
+
+      onFilterCategory: function (oEvent) {
+        this._aCategoryKeys = oEvent.getSource().getSelectedKeys();
         this.applyFilter();
       },
 
@@ -28,7 +34,29 @@ sap.ui.define(
             new Filter("title", FilterOperator.Contains, this._sQuery)
           );
         }
+
+        if (this._aCategoryKeys.length > 0) {
+          const aCategoryFilters = this._aCategoryKeys.map(
+            (sKey) =>
+              new Filter({
+                path: "category_ids",
+                test: (aIds) => {
+                  return this._aCategoryKeys.every((sKey) =>
+                    aIds.includes(sKey)
+                  );
+                },
+              })
+          );
+          console.log(aCategoryFilters[0]);
+          aFilters.push(new Filter({ filters: aCategoryFilters, and: false }));
+        }
         this.byId("journeyGridList").getBinding("items").filter(aFilters);
+      },
+
+      onJourneyPress: function (oEvent) {
+        const oContext = oEvent.getParameter("listItem").getBindingContext();
+        const sId = oContext.getObject().id;
+        this.oRouter.navTo("journey", { id: sId });
       },
     });
   }

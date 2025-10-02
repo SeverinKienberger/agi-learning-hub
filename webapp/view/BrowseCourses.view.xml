@@ -8,7 +8,7 @@
 
     <ScrollContainer height="100%" vertical="true" horizontal="false">
         <VBox alignItems="Center" backgroundDesign="Solid">
-            <Title text="{i18n>coursePageTitle}" wrapping="true" class="AgiHeader1" />
+            <Title text="{i18n>browseCoursesPageTitle}" wrapping="true" class="AgiHeader1" />
         </VBox>
         <VBox alignItems="Stretch" class="AgiGridListContainer">
             <Toolbar design="Transparent" class="AgiFilterBar">
@@ -16,7 +16,7 @@
                     class="AgiFilterElement" />
                 <MultiComboBox
                     width="25%"
-                    placeholder="Level"
+                    placeholder="{i18n>levelPlaceholder}"
                     class="AgiFilterElement"
                     selectionChange=".onFilterLevel"
                     items="{
@@ -43,7 +43,7 @@
                         <Title text="{title}" wrapping="true" />
                         <Text text="{description}" wrapping="true" />
                         <HBox justifyContent="SpaceBetween" width="100%" class="sapUiSmallMarginTop">
-                            <Text text="{ path: 'level_id', formatter: '.LevelFormatter'}"
+                            <Text text="{ path: 'level_id', formatter: '.formatLevel'}"
                                 wrapping="true" />
                             <Text
                                 text="{= ( ${total_duration_minutes} - ${total_duration_minutes} % 60 ) / 60
