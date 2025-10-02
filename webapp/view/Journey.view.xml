@@ -1,10 +1,23 @@
 <mvc:View
     xmlns="sap.m"
     xmlns:tnt="sap.tnt"
-    xmlns:mvc="sap.ui.core.mvc">
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    controllerName="ui5.agi_learning_hub.controller.Journey">
     <Page
         showHeader="false">
         <content>
+            <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
+                <Title text="{title}" wrapping="true" class="AgiHeader2" />
+                <Button text="{i18n>continueJourney}" />
+            </VBox>
+            <VBox class="sapUiLargeMarginTop AgiCenterContainer">
+                <HBox>
+                    <VBox items="{path: 'course_ids',
+				    factory: '.createCourseList'}">
+                    </VBox>
+                </HBox>
+            </VBox>
         </content>
     </Page>
 </mvc:View>

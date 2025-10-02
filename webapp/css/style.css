@@ -1,86 +1,93 @@
-.AgiHeaderSpace{
-    Padding: 20px;
+.AgiHeaderSpace {
+  padding: 20px;
 }
 
 .AgiHeader1 {
-    background: -webkit-linear-gradient(45deg, #E97132, #C00000);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    font-size: 41px;
+  background: -webkit-linear-gradient(45deg, #e97132, #c00000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  font-size: 41px;
 }
 
 .AgiHeader2 {
-    background: -webkit-linear-gradient(45deg, #E97132, #C00000);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 25px;
+  background: -webkit-linear-gradient(45deg, #e97132, #c00000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 25px;
 }
 
 .AgiGridListContainer {
-    display: flex;
-    padding-left: 10%;
-    padding-right: 10%;
+  display: flex;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .AgiGridList {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .AgiListItem {
-    margin: 1rem;
-    background-color: transparent;
-    border: none;
+  margin: 1rem;
+  background-color: transparent;
+  border: none;
 }
 
 .AgiListNumber {
-    border: solid 3px #ffffff;
-    background-color: #a9b4be;
-    height: 18px;
-    width: 18px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-left: -10px;
+  border: solid 3px #ffffff;
+  background-color: #a9b4be;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: -10px;
 }
 
 .AgiListNumberBig {
-    border: solid 12px #f5f6f7;
-    background-color: #a9b4be;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-left: -73px;
+  border: solid 12px #f5f6f7;
+  background-color: #a9b4be;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: -73px;
 }
 
 .AgiListLine {
-    border-left: solid 1.5px #a9b4be;
+  border-left: solid 1.5px #a9b4be;
 }
 
 .AgiListLineBig {
-    border-left: solid 1.5px #a9b4be;
-    padding-left: 3rem;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    margin-left: 3rem;
-    display: flex;
-    align-items: center;
+  border-left: solid 1.5px #a9b4be;
+  padding-left: 3rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  margin-left: 3rem;
+  display: flex;
+  align-items: center;
 }
 
 .AgiTinyMarginVertical {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .AgiFilterBar {
-    background: transparent !important;
-    margin-top: 1rem !important;
-    padding: 0 !important;
-    border: none !important;
+  background: transparent !important;
+  margin-top: 1rem !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .AgiFilterElement > * {
   border-radius: 10px !important;
   background: #ffffff !important;
+}
+
+.AgiCenterContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
