@@ -44,11 +44,12 @@ sap.ui.define(
         console.log(oContext.getObject());
 
         const aCourses = this.oModel.getProperty("/master_data/courses") || [];
-        const iCourse = aCourses.findIndex(
+        const iCourseIndex = aCourses.findIndex(
           (oCourse) => oCourse.id === oContext.getObject()
         );
+        const iCoursePath = oContext.getPath();
 
-        const oCourse = aCourses[iCourse];
+        const oCourse = aCourses[iCourseIndex];
 
         const oTitle = new sap.m.Title({
           text: oCourse.title,
@@ -58,7 +59,12 @@ sap.ui.define(
           text: oCourse.description,
         });
 
-        const oAgiListNumberBigLeft = new sap.m.VBox({});
+        const oCourseNumber = new sap.m.Text({ text: iCourseIndex + 1 });
+        oCourseNumber.addStyleClass("AgiTextWhite");
+
+        const oAgiListNumberBigLeft = new sap.m.VBox({
+          items: [oCourseNumber],
+        });
         oAgiListNumberBigLeft.addStyleClass("AgiListNumberBigLeft");
 
         const oAgiListNumberBigRight = new sap.m.VBox({});
@@ -79,7 +85,7 @@ sap.ui.define(
 
         // ---
 
-        const iOrientation = iCourse % 2;
+        const iOrientation = iCourseIndex % 2;
         const oSpacer = new sap.m.VBox({
           width: "50%",
         });

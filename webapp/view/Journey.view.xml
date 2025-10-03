@@ -13,9 +13,10 @@
                 <Button text="{i18n>continueJourney}" />
             </VBox>
             <VBox class="sapUiLargeMarginTop AgiCenterContainer">
-                <HBox width="calc(100% - 20rem)" justifyContent="Center">
-                    <VBox items="{path: 'course_ids',
-				    factory: '.createCourseList'}"
+                <HBox width="calc(100% - 20rem)" justifyContent="Center" class="AgiTimeLine">
+                    <VBox
+                        items="{path: 'course_ids',
+				        factory: '.createCourseList'}"
                         width="100%">
                     </VBox>
                 </HBox>
