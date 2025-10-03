@@ -47,7 +47,12 @@ sap.ui.define(
         const iCourseIndex = aCourses.findIndex(
           (oCourse) => oCourse.id === oContext.getObject()
         );
-        const iCoursePath = oContext.getPath();
+
+        const aParts = oContext.getPath().split("/");
+
+        const iCourseListNumber = parseInt(aParts[aParts.length - 1]) + 1;
+
+        console.log(iCourseListNumber);
 
         const oCourse = aCourses[iCourseIndex];
 
@@ -59,16 +64,8 @@ sap.ui.define(
           text: oCourse.description,
         });
 
-        const oCourseNumber = new sap.m.Text({ text: iCourseIndex + 1 });
-        oCourseNumber.addStyleClass("AgiTextWhite");
-
-        const oAgiListNumberBigLeft = new sap.m.VBox({
-          items: [oCourseNumber],
-        });
-        oAgiListNumberBigLeft.addStyleClass("AgiListNumberBigLeft");
-
-        const oAgiListNumberBigRight = new sap.m.VBox({});
-        oAgiListNumberBigRight.addStyleClass("AgiListNumberBigRight");
+        const oCourseNumber = new sap.m.Text({ text: iCourseListNumber });
+        oCourseNumber.addStyleClass("AgiTextWhiteCenter");
 
         const oVBox = new sap.m.VBox({
           items: [oTitle, oDescription],
@@ -92,6 +89,11 @@ sap.ui.define(
 
         switch (iOrientation) {
           case 0:
+            const oAgiListNumberBigLeft = new sap.m.VBox({
+              items: [oCourseNumber],
+            });
+            oAgiListNumberBigLeft.addStyleClass("AgiListNumberBigLeft");
+
             const oAgiListLineBigLeft = new sap.m.HBox({
               width: "50%",
               items: [oAgiListNumberBigLeft, oWrapper],
@@ -104,6 +106,11 @@ sap.ui.define(
             break;
 
           case 1:
+            const oAgiListNumberBigRight = new sap.m.VBox({
+              items: [oCourseNumber],
+            });
+            oAgiListNumberBigRight.addStyleClass("AgiListNumberBigRight");
+
             const oAgiListLineBigRight = new sap.m.HBox({
               width: "50%",
               items: [oWrapper, oAgiListNumberBigRight],
