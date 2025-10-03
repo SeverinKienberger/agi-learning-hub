@@ -18,6 +18,27 @@
   font-size: 25px;
 }
 
+.AgiHeader3 {
+  background: -webkit-linear-gradient(45deg, #e97132, #c00000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 19px;
+}
+
+.AgiHeader4 {
+  background: -webkit-linear-gradient(45deg, #e97132, #c00000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 15px;
+  margin-top: 3px;
+}
+
+.AgiGradient {
+  background: -webkit-linear-gradient(45deg, #e97132, #c00000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .AgiGridListContainer {
   display: flex;
   padding-left: 10%;
@@ -44,26 +65,77 @@
   margin-left: -10px;
 }
 
-.AgiListNumberBig {
+.AgiListNumberBigLeft {
   border: solid 12px #f5f6f7;
   background-color: #a9b4be;
   height: 3rem;
   width: 3rem;
   border-radius: 50%;
-  margin-right: 10px;
+  margin-right: 24px;
   margin-left: -73px;
+}
+
+.AgiListNumberBigRight {
+  border: solid 12px #f5f6f7;
+  background-color: #a9b4be;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  margin-left: 24px;
+  margin-right: -90px;
+}
+
+.AgiListNumberBigLeft {
+  position: relative; /* auch hier nötig */
+  border: solid 12px #f5f6f7;
+  background-color: #a9b4be;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  margin-right: 24px;
+  margin-left: -90px;
+}
+
+.AgiListLineBigLeft::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: linear-gradient(#e97132, #c00000);
+  z-index: -1;
+}
+
+.AgiListLineBigRight::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1px;
+  width: 2px;
+  background: linear-gradient(#c00000, #e97132);
+  z-index: -1;
 }
 
 .AgiListLine {
   border-left: solid 1.5px #a9b4be;
 }
 
-.AgiListLineBig {
-  border-left: solid 1.5px #a9b4be;
-  padding-left: 3rem;
+.AgiListLineBigLeft {
+  padding-left: 4.15rem;
   padding-bottom: 1rem;
   padding-top: 1rem;
-  margin-left: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.AgiListLineBigRight {
+  padding-right: 3rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   display: flex;
   align-items: center;
 }

@@ -50,21 +50,73 @@ sap.ui.define(
 
         const oCourse = aCourses[iCourse];
 
-        const oTitle = new sap.m.Title({ text: oCourse.title });
-        const oDescription = new sap.m.Text({ text: oCourse.description });
-
-        const oAgiListNumberBig = new sap.m.HBox({});
-        oAgiListNumberBig.addStyleClass("AgiListNumberBig");
-
-        const oVBox = new sap.m.VBox({ items: [oTitle, oDescription] });
-
-        const oAgiListLineBig = new sap.m.HBox({
-          items: [oAgiListNumberBig, oVBox],
+        const oTitle = new sap.m.Title({
+          text: oCourse.title,
+        });
+        oTitle.addStyleClass("AgiHeader3 sapUiSmallMarginBottom");
+        const oDescription = new sap.m.Text({
+          text: oCourse.description,
         });
 
-        oAgiListLineBig.addStyleClass("AgiListLineBig");
+        const oAgiListNumberBigLeft = new sap.m.VBox({});
+        oAgiListNumberBigLeft.addStyleClass("AgiListNumberBigLeft");
 
-        return oAgiListLineBig;
+        const oAgiListNumberBigRight = new sap.m.VBox({});
+        oAgiListNumberBigRight.addStyleClass("AgiListNumberBigRight");
+
+        const oVBox = new sap.m.VBox({
+          items: [oTitle, oDescription],
+        });
+
+        const oPanel = new sap.m.Panel({
+          content: oVBox,
+        });
+
+        const oWrapper = new sap.m.VBox({
+          width: "100%",
+          items: oPanel,
+        });
+
+        // ---
+
+        const iOrientation = iCourse % 2;
+        const oSpacer = new sap.m.VBox({
+          width: "50%",
+        });
+
+        switch (iOrientation) {
+          case 0:
+            const oAgiListLineBigLeft = new sap.m.HBox({
+              width: "50%",
+              items: [oAgiListNumberBigLeft, oWrapper],
+            });
+            oAgiListLineBigLeft.addStyleClass("AgiListLineBigLeft");
+
+            return new sap.m.HBox({
+              items: [oSpacer, oAgiListLineBigLeft],
+            });
+            break;
+
+          case 1:
+            const oAgiListLineBigRight = new sap.m.HBox({
+              width: "50%",
+              items: [oWrapper, oAgiListNumberBigRight],
+            });
+            oAgiListLineBigRight.addStyleClass("AgiListLineBigRight");
+
+            return new sap.m.HBox({
+              items: [oAgiListLineBigRight, oSpacer],
+            });
+            break;
+        }
+
+        // ---
+
+        const oTimelineWrapper = new sap.m.HBox({
+          items: [oAgiListLineBigLeft, oAgiListLineBigRight],
+        });
+
+        return oTimelineWrapper;
       },
     });
   }

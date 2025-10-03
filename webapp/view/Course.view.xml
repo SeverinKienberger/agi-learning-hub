@@ -15,9 +15,9 @@
                 class="sapUiResponsiveMargin"
                 width="auto">
                 <items>
-                    <HBox class="AgiListLineBig sapUiMediumMarginBegin sapUiMediumMarginEnd"
+                    <HBox class="AgiListLineBigLeft sapUiMediumMarginBegin sapUiMediumMarginEnd"
                         width="100%" alignItems="Stretch" fitContainer="true">
-                        <HBox class="AgiListNumberBig" />
+                        <HBox class="AgiListNumberBigLeft" />
                         <VBox width="100%" class="sapUiMediumMarginEnd">
                             <layoutData>
                                 <FlexItemData growFactor="1" shrinkFactor="1" baseSize="0" />

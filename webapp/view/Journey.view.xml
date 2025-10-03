@@ -8,13 +8,15 @@
         showHeader="false">
         <content>
             <VBox alignItems="Start" backgroundDesign="Solid" class="AgiHeaderSpace">
-                <Title text="{title}" wrapping="true" class="AgiHeader2" />
+                <Title text="{title}" wrapping="true" class="AgiHeader2 sapUiSmallMarginTopBottom" />
+                <Text text="{description}" class="sapUiSmallMarginTopBottom"></Text>
                 <Button text="{i18n>continueJourney}" />
             </VBox>
             <VBox class="sapUiLargeMarginTop AgiCenterContainer">
-                <HBox>
+                <HBox width="calc(100% - 20rem)" justifyContent="Center">
                     <VBox items="{path: 'course_ids',
-				    factory: '.createCourseList'}">
+				    factory: '.createCourseList'}"
+                        width="100%">
                     </VBox>
                 </HBox>
             </VBox>

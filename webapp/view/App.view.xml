@@ -4,10 +4,15 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	controllerName="ui5.agi_learning_hub.controller.App">
 	<VBox>
-		<f:ShellBar title="Learning Hub"
+		<f:ShellBar
 			homeIcon="images/AGILITA Logo-01.svg"
 			showNavButton="true"
 			navButtonPressed=".onNavBack">
+			<f:additionalContent>
+				<HBox alignContent="Start" width="100%">
+					<Text class="AgiHeader4" text="Agi Learning Hub" />
+				</HBox>
+			</f:additionalContent>
 			<f:profile>
 				<Avatar initials="SK" />
 			</f:profile>
