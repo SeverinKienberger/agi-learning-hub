@@ -41,8 +41,6 @@ sap.ui.define(
       },
 
       createCourseList: function (sId, oContext) {
-        console.log(oContext.getObject());
-
         const aCourses = this.oModel.getProperty("/master_data/courses") || [];
         const iCourseIndex = aCourses.findIndex(
           (oCourse) => oCourse.id === oContext.getObject()
@@ -51,8 +49,6 @@ sap.ui.define(
         const aParts = oContext.getPath().split("/");
 
         const iCourseListNumber = parseInt(aParts[aParts.length - 1]) + 1;
-
-        console.log(iCourseListNumber);
 
         const oCourse = aCourses[iCourseIndex];
 
@@ -64,11 +60,17 @@ sap.ui.define(
           text: oCourse.description,
         });
 
+        const CourseCategoryContainer = this.createCourseCategories(
+          sId,
+          oContext,
+          oCourse
+        );
+
         const oCourseNumber = new sap.m.Text({ text: iCourseListNumber });
         oCourseNumber.addStyleClass("AgiTextWhiteCenter");
 
         const oVBox = new sap.m.VBox({
-          items: [oTitle, oDescription],
+          items: [oTitle, oDescription, CourseCategoryContainer],
         });
 
         const oPanel = new sap.m.Panel({
@@ -82,7 +84,7 @@ sap.ui.define(
 
         // ---
 
-        const iOrientation = iCourseIndex % 2;
+        const iOrientation = iCourseListNumber % 2;
         const oSpacer = new sap.m.VBox({
           width: "50%",
         });
@@ -130,6 +132,38 @@ sap.ui.define(
         });
 
         return oTimelineWrapper;
+      },
+
+      createCourseCategories: function (sId, oContext, oCourse) {
+        const aAllCategories =
+          this.oModel.getProperty("/master_data/categories") || [];
+
+        const aCourseCategorieIds = oCourse.category_ids;
+
+        const aLabels = [];
+
+        aCourseCategorieIds.forEach((iCourseCategoryIndex) => {
+          aAllCategories.forEach((oCategory) => {
+            if (iCourseCategoryIndex == oCategory.id) {
+              const oCategoryTitle = new sap.m.Text({
+                text: oCategory.title,
+              });
+              const oLabel = new sap.m.HBox({
+                items: oCategoryTitle,
+              });
+
+              oLabel.addStyleClass("AgiLabel");
+
+              aLabels.push(oLabel);
+            }
+          });
+        });
+
+        const oLabelContainer = new sap.m.HBox({ items: aLabels });
+
+        oLabelContainer.addStyleClass("AgiLabelContainer");
+
+        return oLabelContainer;
       },
     });
   }

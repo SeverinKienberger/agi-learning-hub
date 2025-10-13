@@ -150,3 +150,14 @@
   color: #ffffff;
   text-align: center;
 }
+
+.AgiLabel {
+  background-color: #eaecee;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.AgiLabelContainer :nth-child(1) {
+  margin-left: 0;
+}
