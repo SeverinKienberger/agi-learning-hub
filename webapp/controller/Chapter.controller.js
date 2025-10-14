@@ -20,9 +20,17 @@ sap.ui.define(
           path: oContext.getPath(),
         });
 
-        const oHtml = this.byId("chapterHtml");
-        oHtml.setContent("");
-        oHtml.setContent(oContext.getProperty("content_html") || "");
+        const sHtml = oContext.getProperty("content_html") || "";
+
+        const oContainer = this.byId("chapterContainer");
+        oContainer.removeAllItems();
+
+        if (sHtml) {
+          oContainer.addItem(new sap.ui.core.HTML({ content: [sHtml] }));
+        } else {
+          oContainer.addItem(this.createTest());
+        }
+
         this.byId("toolPage")
           .getSideContent()
           .setSelectedKey(oContext.getProperty("id"));
@@ -68,13 +76,24 @@ sap.ui.define(
           path: `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`,
         });
 
-        const oHtml = this.byId("chapterHtml");
-        oHtml.setContent("");
-        oHtml.setContent(
-          this.oModel.getProperty(
-            `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}/content_html`
-          ) || ""
+        const sHtml = this.oModel.getProperty(
+          `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}/content_html`
         );
+
+        const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
+
+        const oContainer = this.byId("chapterContainer");
+        oContainer.removeAllItems();
+
+        if (sHtml) {
+          oContainer.addItem(oHtml);
+        } else {
+          oContainer.addItem(this.createTest());
+        }
+      },
+      createTest: function () {
+        const oTestText = new sap.m.Text({ text: "Test" });
+        return oTestText;
       },
     });
   }
