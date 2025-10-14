@@ -114,6 +114,15 @@
   align-items: center;
 }
 
+.AgiListLineBigLeftGrey {
+  padding-left: 4.15rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  border-left: solid 2px #a9b4be;
+}
+
 .AgiListLineBigRight {
   padding-right: 3rem;
   padding-bottom: 1rem;
@@ -152,12 +161,19 @@
 }
 
 .AgiLabel {
-  background-color: #eaecee;
+  background-color: #a9b4be;
+  color: white;
   border-radius: 5px;
-  margin: 5px;
+  margin: 10px 5px 5px 5px;
   padding: 5px;
 }
 
 .AgiLabelContainer :nth-child(1) {
   margin-left: 0;
+}
+
+.AgiHoverable :hover {
+  background-color: #eaecee;
+  border: solid;
+  border-color: #b3b3b3;
 }

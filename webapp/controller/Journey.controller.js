@@ -60,21 +60,49 @@ sap.ui.define(
           text: oCourse.description,
         });
 
-        const CourseCategoryContainer = this.createCourseCategories(
+        const sCourseduration =
+          (oCourse.total_duration_minutes -
+            (oCourse.total_duration_minutes % 60)) /
+            60 +
+          "h " +
+          (oCourse.total_duration_minutes % 60) +
+          "min";
+
+        const oCourseDurationText = new sap.m.Text({ text: sCourseduration });
+
+        const oBottomTextContainer = new sap.m.VBox({
+          items: [oCourseDurationText],
+          justifyContent: "End",
+        });
+
+        const oCourseCategoryContainer = this.createCourseCategories(
           sId,
           oContext,
           oCourse
         );
 
+        const oSpaceContainer = new sap.m.HBox({
+          items: [oCourseCategoryContainer, oBottomTextContainer],
+          justifyContent: "SpaceBetween",
+        });
+
         const oCourseNumber = new sap.m.Text({ text: iCourseListNumber });
         oCourseNumber.addStyleClass("AgiTextWhiteCenter");
 
         const oVBox = new sap.m.VBox({
-          items: [oTitle, oDescription, CourseCategoryContainer],
+          items: [oTitle, oDescription, oSpaceContainer],
         });
 
         const oPanel = new sap.m.Panel({
           content: oVBox,
+          backgroundDesign: "Transparent",
+        });
+
+        oPanel.addStyleClass("sapMTile sapMLIBHoverable");
+        oPanel.addEventDelegate({
+          onclick: () => {
+            this.oRouter.navTo("course", { id: oCourse.id });
+          },
         });
 
         const oWrapper = new sap.m.VBox({
@@ -148,6 +176,8 @@ sap.ui.define(
               const oCategoryTitle = new sap.m.Text({
                 text: oCategory.title,
               });
+
+              oCategoryTitle.addStyleClass("AgiTextWhiteCenter");
               const oLabel = new sap.m.HBox({
                 items: oCategoryTitle,
               });
