@@ -98,10 +98,29 @@ sap.ui.define(
       createTest: function (oTest) {
         const aQuestions = oTest.questions || [];
 
-        const oText = new sap.m.Text({ text: aQuestions[0].question });
+        const aQuestionControls = aQuestions.map((oQuestion) => {
+          const oQuestionTitle = new sap.m.Title({ text: oQuestion.question });
+
+          const oQuestionTitleWrapper = new sap.m.HBox({
+            items: oQuestionTitle,
+          });
+
+          const aAnswers = oQuestion.answers.map((oAnswer) => {
+            const oAnswerText = new sap.m.Text({ text: oAnswer });
+            const oCheckBox = new sap.m.Text({ text: "[]" });
+            console.log(oAnswer);
+            return new sap.m.HBox({ items: [oCheckBox, oAnswerText] });
+          });
+
+          const oAnswerWrapper = new sap.m.VBox({ items: [aAnswers] });
+
+          return new sap.m.VBox({
+            items: [oQuestionTitleWrapper, oAnswerWrapper],
+          });
+        });
 
         const oTestWrapper = new sap.m.VBox({
-          items: [oText],
+          items: [aQuestionControls],
         });
         return oTestWrapper;
       },
