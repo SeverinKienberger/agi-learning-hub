@@ -99,30 +99,27 @@ sap.ui.define(
         const aQuestions = oTest.questions || [];
 
         const aQuestionControls = aQuestions.map((oQuestion) => {
-          const oQuestionTitle = new sap.m.Title({ text: oQuestion.question });
-
-          const oQuestionTitleWrapper = new sap.m.HBox({
-            items: oQuestionTitle,
-          });
-
           const aAnswers = oQuestion.answers.map((oAnswer) => {
             const oAnswerText = new sap.m.Text({ text: oAnswer });
-            const oCheckBox = new sap.m.Text({ text: "[]" });
+            const oCheckBox = new sap.m.CheckBox({});
             console.log(oAnswer);
             return new sap.m.HBox({ items: [oCheckBox, oAnswerText] });
           });
 
-          const oAnswerWrapper = new sap.m.VBox({ items: [aAnswers] });
-
-          return new sap.m.VBox({
-            items: [oQuestionTitleWrapper, oAnswerWrapper],
+          const oAnswerWrapper = new sap.m.Panel({
+            headerText: oQuestion.question,
+            content: [aAnswers],
+            backgroundDesign: "Solid",
           });
+
+          oAnswerWrapper.addStyleClass("sapUiSmallMargin");
+
+          return oAnswerWrapper;
         });
 
-        const oTestWrapper = new sap.m.VBox({
+        return new sap.m.VBox({
           items: [aQuestionControls],
         });
-        return oTestWrapper;
       },
     });
   }
