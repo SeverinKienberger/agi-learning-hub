@@ -9,6 +9,7 @@ sap.ui.define(
           .getRouter()
           .getRoute("chapter")
           .attachPatternMatched(this._onChapterMatched, this);
+        this.getView().setModel(new JSONModel({ questions: [] }), "uiControl");
         this.oModel = this.getOwnerComponent().getModel();
       },
 
@@ -107,60 +108,30 @@ sap.ui.define(
       },
 
       createTest: function (oTest) {
-        const aQuestions = oTest.questions || [];
+        const oModel = new sap.ui.model.json.JSONModel(oTest);
+        this.getView().setModel(oModel, "test");
 
-        const oAnswerModel = new JSONModel({
-          answers: aQuestions.map(() => ({ selected: [] })),
-        });
-        this.getView().setModel(oAnswerModel, "answers");
-
-        const oTitle = new sap.m.Title({ text: oTest.title });
-        oTitle.addStyleClass("AgiHeader2");
+        const oTitle = new sap.m.Title({ text: oTest.title }).addStyleClass(
+          "AgiHeader2 sapUiSmallMarginBegin"
+        );
 
         const oHeaderSpace = new sap.m.VBox({
           items: [oTitle],
           width: "100%",
+          height: "5rem",
           alignItems: "Start",
+          justifyContent: "Center",
           backgroundDesign: "Solid",
         });
 
-        oHeaderSpace.addStyleClass("AgiHeaderSpace sapUiLargeMarginBottom");
+        const oQuestionContainer = new sap.m.VBox({
+          items: {
+            path: "test>/questions",
+            factory: this.createQuestion.bind(this),
+          },
 
-        const aQuestionControls = aQuestions.map((oQuestion, iQuestion) => {
-          const oQuestionTitle = new sap.m.Title({ text: oQuestion.question });
-          oQuestionTitle.addStyleClass("AgiHeader2 sapUiMediumMarginTopBottom");
-
-          const aAnswers = oQuestion.answers.map((oAnswer, iAnswer) => {
-            const oAnswerText = new sap.m.Text({ text: oAnswer });
-
-            const oCheckBox = new sap.m.CheckBox({
-              select: (oEvent) =>
-                this._onAnswerSelect(oEvent, iQuestion, iAnswer),
-            });
-
-            const oAnswerAligned = new sap.m.HBox({
-              items: [oCheckBox, oAnswerText],
-              alignItems: "Center",
-            });
-            return new sap.m.Panel({
-              content: [oAnswerAligned],
-              width: "calc(100% - 1rem)",
-            }).addStyleClass("sapMTile");
-          });
-
-          const oAnswerWrapper = new sap.m.Panel({
-            content: [oQuestionTitle, aAnswers],
-            width: "100%",
-            backgroundDesign: "Solid",
-          });
-
-          return oAnswerWrapper;
-        });
-
-        const oQuestionWrapper = new sap.m.VBox({
-          items: aQuestionControls,
-          width: "calc(100% - 30rem)",
-          gap: "3.5rem",
+          width: "calc(100% - 12rem)",
+          gap: "2.5rem",
         });
 
         const oButton = new sap.m.Button({
@@ -171,34 +142,61 @@ sap.ui.define(
           press: () => this._onEvaluateAnswers(oTest),
         });
 
-        return new sap.m.VBox({
-          items: [oHeaderSpace, oQuestionWrapper, oButton],
+        const oTestContainer = new sap.m.VBox({
+          items: [oHeaderSpace, oQuestionContainer, oButton],
           alignItems: "Center",
+          gap: "2.5rem",
+        });
+        return oTestContainer;
+      },
+
+      createQuestion: function (sId, oContext) {
+        const aPathParts = oContext.getPath().split("/");
+        const iQuestion = aPathParts[aPathParts.length - 1];
+        const sQuestion = oContext.getProperty("question");
+        const aAnswers = oContext.getProperty("answers");
+
+        const uiControl = this.getView().getModel("uiControl");
+        uiControl.setProperty(`/questions/${iQuestion}`, {
+          question: sQuestion,
+          answers: aAnswers.map((oAnswer) => ({
+            text: oAnswer,
+            selected: false,
+          })),
+        });
+
+        const oTitle = new sap.m.Title({ text: sQuestion });
+        oTitle.addStyleClass("AgiHeader2 sapUiMediumMarginTopBottom");
+
+        const oAnswerContainer = new sap.m.VBox({ gap: "1rem" });
+
+        oAnswerContainer.bindAggregation("items", {
+          path: `uiControl>/questions/${iQuestion}/answers`,
+          templateShareable: false,
+          template: new sap.m.Panel({
+            content: [
+              new sap.m.CheckBox({
+                text: "{uiControl>text}",
+                selected: "{uiControl>selected}",
+              }),
+            ],
+            width: "calc(100% - 1rem)",
+          }).addStyleClass("sapMTile"),
+        });
+
+        return new sap.m.Panel({
+          content: [oTitle, oAnswerContainer],
+          width: "100%",
+          backgroundDesign: "Solid",
         });
       },
 
-      _onAnswerSelect: function (oEvent, iQuestion, iAnswer) {
-        const oModel = this.getView().getModel("answers");
-        const aAnswers = oModel.getProperty("/answers");
-        const bSelected = oEvent.getParameter("selected");
-
-        if (bSelected) {
-          if (!aAnswers[iQuestion].selected.includes(iAnswer)) {
-            aAnswers[iQuestion].selected.push(iAnswer);
-          }
-        } else {
-          const iIndex = aAnswers[iQuestion].selected.indexOf(iAnswer);
-          if (iIndex > -1) {
-            aAnswers[iQuestion].selected.splice(iIndex, 1);
-          }
-        }
-
-        oModel.refresh(true);
-        console.warn(oModel.getData());
-      },
-
       _onEvaluateAnswers: function (oTest) {
-        const oAnswerModel = this.getView().getModel("answers").getData();
+        const oUiControl = this.getView().getModel("uiControl");
+        const oData = oUiControl.getData();
+
+        console.warn(oUiControl);
+
         const aQuestions = oTest.questions;
 
         const oCorrectedModel = {
@@ -210,11 +208,11 @@ sap.ui.define(
         oTest.questions.forEach((oQuestion, iQuestion) => {
           oQuestion.answers.forEach((oAnswer, iAnswer) => {
             if (aQuestions[iQuestion].correct.includes(iAnswer)) {
-              if (oAnswerModel.answers[iQuestion].selected.includes(iAnswer)) {
+              if (oData.questions[iQuestion].answers[iAnswer].selected) {
                 oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
               }
             } else {
-              if (!oAnswerModel.answers[iQuestion].selected.includes(iAnswer)) {
+              if (!oData.questions[iQuestion].answers[iAnswer].selected) {
                 oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
               }
             }
