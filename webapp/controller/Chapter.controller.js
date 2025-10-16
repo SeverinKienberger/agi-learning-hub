@@ -194,9 +194,6 @@ sap.ui.define(
       _onEvaluateAnswers: function (oTest) {
         const oUiControl = this.getView().getModel("uiControl");
         const oData = oUiControl.getData();
-
-        console.warn(oUiControl);
-
         const aQuestions = oTest.questions;
 
         const oCorrectedModel = {
@@ -218,8 +215,6 @@ sap.ui.define(
             }
           });
         });
-
-        console.log(oCorrectedModel);
       },
     });
   }
