@@ -24,11 +24,17 @@ sap.ui.define(
 
         const sHtml = oChapter.content_html || "";
 
+        const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
+
+        const oWrapper = new sap.m.VBox({ items: oHtml }).addStyleClass(
+          "sapUiMediumMargin"
+        );
+
         const oContainer = this.byId("chapterContainer");
         oContainer.removeAllItems();
 
         if (sHtml) {
-          oContainer.addItem(new sap.ui.core.HTML({ content: [sHtml] }));
+          oContainer.addItem(oWrapper);
         } else {
           oContainer.addItem(this.createTest(oChapter));
         }
@@ -86,40 +92,136 @@ sap.ui.define(
 
         const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
 
+        const oWrapper = new sap.m.VBox({ items: oHtml }).addStyleClass(
+          "sapUiMediumMargin"
+        );
+
         const oContainer = this.byId("chapterContainer");
         oContainer.removeAllItems();
 
         if (sHtml) {
-          oContainer.addItem(oHtml);
+          oContainer.addItem(oWrapper);
         } else {
           oContainer.addItem(this.createTest(oChapter));
         }
       },
+
       createTest: function (oTest) {
         const aQuestions = oTest.questions || [];
 
-        const aQuestionControls = aQuestions.map((oQuestion) => {
-          const aAnswers = oQuestion.answers.map((oAnswer) => {
+        const oAnswerModel = new JSONModel({
+          answers: aQuestions.map(() => ({ selected: [] })),
+        });
+        this.getView().setModel(oAnswerModel, "answers");
+
+        const oTitle = new sap.m.Title({ text: oTest.title });
+        oTitle.addStyleClass("AgiHeader2");
+
+        const oHeaderSpace = new sap.m.VBox({
+          items: [oTitle],
+          width: "100%",
+          alignItems: "Start",
+          backgroundDesign: "Solid",
+        });
+
+        oHeaderSpace.addStyleClass("AgiHeaderSpace sapUiLargeMarginBottom");
+
+        const aQuestionControls = aQuestions.map((oQuestion, iQuestion) => {
+          const oQuestionTitle = new sap.m.Title({ text: oQuestion.question });
+          oQuestionTitle.addStyleClass("AgiHeader2 sapUiMediumMarginTopBottom");
+
+          const aAnswers = oQuestion.answers.map((oAnswer, iAnswer) => {
             const oAnswerText = new sap.m.Text({ text: oAnswer });
-            const oCheckBox = new sap.m.CheckBox({});
-            console.log(oAnswer);
-            return new sap.m.HBox({ items: [oCheckBox, oAnswerText] });
+
+            const oCheckBox = new sap.m.CheckBox({
+              select: (oEvent) =>
+                this._onAnswerSelect(oEvent, iQuestion, iAnswer),
+            });
+
+            const oAnswerAligned = new sap.m.HBox({
+              items: [oCheckBox, oAnswerText],
+              alignItems: "Center",
+            });
+            return new sap.m.Panel({
+              content: [oAnswerAligned],
+              width: "calc(100% - 1rem)",
+            }).addStyleClass("sapMTile");
           });
 
           const oAnswerWrapper = new sap.m.Panel({
-            headerText: oQuestion.question,
-            content: [aAnswers],
+            content: [oQuestionTitle, aAnswers],
+            width: "100%",
             backgroundDesign: "Solid",
           });
-
-          oAnswerWrapper.addStyleClass("sapUiSmallMargin");
 
           return oAnswerWrapper;
         });
 
-        return new sap.m.VBox({
-          items: [aQuestionControls],
+        const oQuestionWrapper = new sap.m.VBox({
+          items: aQuestionControls,
+          width: "calc(100% - 30rem)",
+          gap: "3.5rem",
         });
+
+        const oButton = new sap.m.Button({
+          text: this.getView()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText("evaluateAnswers"),
+          press: () => this._onEvaluateAnswers(oTest),
+        });
+
+        return new sap.m.VBox({
+          items: [oHeaderSpace, oQuestionWrapper, oButton],
+          alignItems: "Center",
+        });
+      },
+
+      _onAnswerSelect: function (oEvent, iQuestion, iAnswer) {
+        const oModel = this.getView().getModel("answers");
+        const aAnswers = oModel.getProperty("/answers");
+        const bSelected = oEvent.getParameter("selected");
+
+        if (bSelected) {
+          if (!aAnswers[iQuestion].selected.includes(iAnswer)) {
+            aAnswers[iQuestion].selected.push(iAnswer);
+          }
+        } else {
+          const iIndex = aAnswers[iQuestion].selected.indexOf(iAnswer);
+          if (iIndex > -1) {
+            aAnswers[iQuestion].selected.splice(iIndex, 1);
+          }
+        }
+
+        oModel.refresh(true);
+        console.warn(oModel.getData());
+      },
+
+      _onEvaluateAnswers: function (oTest) {
+        const oAnswerModel = this.getView().getModel("answers").getData();
+        const aQuestions = oTest.questions;
+
+        const oCorrectedModel = {
+          questions: oTest.questions.map((oQuestion) => ({
+            correct: oQuestion.answers.map(() => false),
+          })),
+        };
+
+        oTest.questions.forEach((oQuestion, iQuestion) => {
+          oQuestion.answers.forEach((oAnswer, iAnswer) => {
+            if (aQuestions[iQuestion].correct.includes(iAnswer)) {
+              if (oAnswerModel.answers[iQuestion].selected.includes(iAnswer)) {
+                oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
+              }
+            } else {
+              if (!oAnswerModel.answers[iQuestion].selected.includes(iAnswer)) {
+                oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
+              }
+            }
+          });
+        });
+
+        console.log(oCorrectedModel);
       },
     });
   }

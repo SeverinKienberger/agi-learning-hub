@@ -20,9 +20,7 @@
         </sideContent>
         <mainContents>
             <m:Page id="chapterDetails" showHeader="false">
-                <m:HBox class="sapUiSmallMargin" width="100%">
-                    <m:VBox id="chapterContainer" width="calc(100% - 4rem)" />
-                </m:HBox>
+                <m:VBox id="chapterContainer" width="100%" />
             </m:Page>
         </mainContents>
     </ToolPage>
