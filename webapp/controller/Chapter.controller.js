@@ -162,6 +162,7 @@ sap.ui.define(
           answers: aAnswers.map((oAnswer) => ({
             text: oAnswer,
             selected: false,
+            correct: false,
           })),
         });
 
@@ -196,25 +197,28 @@ sap.ui.define(
         const oData = oUiControl.getData();
         const aQuestions = oTest.questions;
 
-        const oCorrectedModel = {
-          questions: oTest.questions.map((oQuestion) => ({
-            correct: oQuestion.answers.map(() => false),
-          })),
-        };
-
         oTest.questions.forEach((oQuestion, iQuestion) => {
           oQuestion.answers.forEach((oAnswer, iAnswer) => {
             if (aQuestions[iQuestion].correct.includes(iAnswer)) {
               if (oData.questions[iQuestion].answers[iAnswer].selected) {
-                oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
+                oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/correct`,
+                  true
+                );
               }
             } else {
               if (!oData.questions[iQuestion].answers[iAnswer].selected) {
-                oCorrectedModel.questions[iQuestion].correct[iAnswer] = true;
+                console.log("index: " + iQuestion);
+                console.log(oUiControl);
+                oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/correct`,
+                  true
+                );
               }
             }
           });
         });
+        console.log(oUiControl.getData());
       },
     });
   }
