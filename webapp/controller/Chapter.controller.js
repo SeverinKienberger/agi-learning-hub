@@ -164,6 +164,7 @@ sap.ui.define(
             selected: false,
             correct: false,
           })),
+          questionCorrect: false,
         });
 
         const oTitle = new sap.m.Title({ text: sQuestion });
@@ -205,6 +206,11 @@ sap.ui.define(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
                 );
+              } else {
+                oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/correct`,
+                  false
+                );
               }
             } else {
               if (!oData.questions[iQuestion].answers[iAnswer].selected) {
@@ -214,11 +220,58 @@ sap.ui.define(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
                 );
+              } else {
+                oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/correct`,
+                  false
+                );
               }
             }
           });
         });
+
+        this._generateMicroChart(this._calculatePercentage());
+      },
+
+      _calculatePercentage: function () {
+        const oUiControl = this.getView().getModel("uiControl");
+        const iCorrectQuestions = this._calculateCorrectQuestions();
+        const iQuestionAmount = oUiControl.getProperty(`/questions`).length;
+        const fPercentage = (iCorrectQuestions / iQuestionAmount) * 100;
+        return fPercentage;
+      },
+
+      _calculateCorrectQuestions: function () {
+        console.log("ALAARRRRRRMMMMM");
+        const oUiControl = this.getView().getModel("uiControl");
+        oUiControl.getProperty(`/questions`).forEach((oQuestion, iQuestion) => {
+          const öaldk = oQuestion.answers.every((oAnswer) => oAnswer.correct);
+          console.log(öaldk);
+          if (öaldk) {
+            oUiControl.setProperty(
+              `/questions/${iQuestion}/questionCorrect`,
+              true
+            );
+          } else {
+            oUiControl.setProperty(
+              `/questions/${iQuestion}/questionCorrect`,
+              false
+            );
+          }
+        });
         console.log(oUiControl.getData());
+      },
+
+      _generateMicroChart: function (iPercentage) {
+        const oChartContainer = new sap.suite.ui.microchart.RadialMicroChart({
+          size: "M",
+          percentage: iPercentage,
+          valueColor: "Good",
+        });
+        const oHorizontalLayout = new sap.ui.layout.HorizontalLayout({
+          content: oChartContainer,
+        });
+        this.byId("chapterContainer").addItem(oHorizontalLayout);
       },
     });
   }

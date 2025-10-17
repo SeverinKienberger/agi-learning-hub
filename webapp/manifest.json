@@ -25,7 +25,8 @@
         "sap.ui.core": {},
         "sap.m": {},
         "sap.ui.layout": {},
-        "sap.f": {}
+        "sap.f": {},
+        "sap.suite.ui.microchart": {}
       }
     },
     "models": {
