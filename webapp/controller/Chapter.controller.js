@@ -9,7 +9,22 @@ sap.ui.define(
           .getRouter()
           .getRoute("chapter")
           .attachPatternMatched(this._onChapterMatched, this);
-        this.getView().setModel(new JSONModel({ questions: [] }), "uiControl");
+        this.getView().setModel(
+          new JSONModel({
+            questions: [],
+            rating: {
+              percentage: 0,
+              result: null,
+            },
+            eResult: {
+              GOOD: "Good",
+              CRITICAL: "Critical",
+              ERROR: "Error",
+            },
+          }),
+          "uiControl"
+        );
+        this.oUiControl = this.getView().getModel("uiControl");
         this.oModel = this.getOwnerComponent().getModel();
       },
 
@@ -36,6 +51,7 @@ sap.ui.define(
 
         if (sHtml) {
           oContainer.addItem(oWrapper);
+          this.byId("feedbackWrapper").removeAllItems();
         } else {
           oContainer.addItem(this.createTest(oChapter));
         }
@@ -102,6 +118,7 @@ sap.ui.define(
 
         if (sHtml) {
           oContainer.addItem(oWrapper);
+          this.byId("feedbackWrapper").removeAllItems();
         } else {
           oContainer.addItem(this.createTest(oChapter));
         }
@@ -194,20 +211,19 @@ sap.ui.define(
       },
 
       _onEvaluateAnswers: function (oTest) {
-        const oUiControl = this.getView().getModel("uiControl");
-        const oData = oUiControl.getData();
+        const oData = this.oUiControl.getData();
         const aQuestions = oTest.questions;
 
         oTest.questions.forEach((oQuestion, iQuestion) => {
           oQuestion.answers.forEach((oAnswer, iAnswer) => {
             if (aQuestions[iQuestion].correct.includes(iAnswer)) {
               if (oData.questions[iQuestion].answers[iAnswer].selected) {
-                oUiControl.setProperty(
+                this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
                 );
               } else {
-                oUiControl.setProperty(
+                this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   false
                 );
@@ -215,13 +231,13 @@ sap.ui.define(
             } else {
               if (!oData.questions[iQuestion].answers[iAnswer].selected) {
                 console.log("index: " + iQuestion);
-                console.log(oUiControl);
-                oUiControl.setProperty(
+                console.log(this.oUiControl);
+                this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
                 );
               } else {
-                oUiControl.setProperty(
+                this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   false
                 );
@@ -230,48 +246,93 @@ sap.ui.define(
           });
         });
 
-        this._generateMicroChart(this._calculatePercentage());
-      },
+        this.oUiControl
+          .getProperty(`/questions`)
+          .forEach((oQuestion, iQuestion) => {
+            const correct = oQuestion.answers.every(
+              (oAnswer) => oAnswer.correct
+            );
+            if (correct) {
+              this.oUiControl.setProperty(
+                `/questions/${iQuestion}/questionCorrect`,
+                true
+              );
+            } else {
+              this.oUiControl.setProperty(
+                `/questions/${iQuestion}/questionCorrect`,
+                false
+              );
+            }
+          });
 
-      _calculatePercentage: function () {
-        const oUiControl = this.getView().getModel("uiControl");
-        const iCorrectQuestions = this._calculateCorrectQuestions();
-        const iQuestionAmount = oUiControl.getProperty(`/questions`).length;
-        const fPercentage = (iCorrectQuestions / iQuestionAmount) * 100;
-        return fPercentage;
+        this._setPercentage(this._calculateCorrectQuestions());
+        this._setRating();
+        this._generateFeedback();
       },
 
       _calculateCorrectQuestions: function () {
-        console.log("ALAARRRRRRMMMMM");
-        const oUiControl = this.getView().getModel("uiControl");
-        oUiControl.getProperty(`/questions`).forEach((oQuestion, iQuestion) => {
-          const öaldk = oQuestion.answers.every((oAnswer) => oAnswer.correct);
-          console.log(öaldk);
-          if (öaldk) {
-            oUiControl.setProperty(
-              `/questions/${iQuestion}/questionCorrect`,
-              true
-            );
-          } else {
-            oUiControl.setProperty(
-              `/questions/${iQuestion}/questionCorrect`,
-              false
-            );
+        const aCorrectQuestions = [];
+        this.oUiControl.getData().questions.forEach((oQuestion) => {
+          if (oQuestion.questionCorrect) {
+            aCorrectQuestions.push(oQuestion.question);
           }
         });
-        console.log(oUiControl.getData());
+        return aCorrectQuestions.length;
       },
 
-      _generateMicroChart: function (iPercentage) {
+      _setPercentage: function (iCorrectQuestions) {
+        const iQuestionAmount =
+          this.oUiControl.getProperty(`/questions`).length;
+        const fPercentage = (iCorrectQuestions / iQuestionAmount) * 100;
+        this.oUiControl.setProperty("/rating/percentage", fPercentage);
+      },
+
+      _setRating: function () {
+        const fpercentage = this.oUiControl.getProperty("/rating/percentage");
+        const iErrorThreshhold = 30;
+        const iNeutralThreshhold = 70;
+        const oEnum = this.oUiControl.getProperty("/eResult");
+
+        if (fpercentage < iErrorThreshhold) {
+          this.oUiControl.setProperty("/rating/result", oEnum.ERROR);
+        } else if (fpercentage < iNeutralThreshhold) {
+          this.oUiControl.setProperty("/rating/result", oEnum.CRITICAL);
+        } else {
+          this.oUiControl.setProperty("/rating/result", oEnum.GOOD);
+        }
+      },
+
+      _generateFeedback: function () {
         const oChartContainer = new sap.suite.ui.microchart.RadialMicroChart({
-          size: "M",
-          percentage: iPercentage,
-          valueColor: "Good",
+          size: "L",
+          percentage: this.oUiControl.getProperty("/rating/percentage"),
+          valueColor: this.oUiControl.getProperty("/rating/result"),
         });
         const oHorizontalLayout = new sap.ui.layout.HorizontalLayout({
           content: oChartContainer,
         });
-        this.byId("chapterContainer").addItem(oHorizontalLayout);
+        const ofeedbackWrapper = this.byId("feedbackWrapper");
+        const oFeedbackContainer = new sap.m.Panel({
+          content: oHorizontalLayout,
+          width: "100%",
+        }).addStyleClass(
+          "sapMTile AgiNoMarginStartEnd sapUiSmallMarginTopBottom"
+        );
+
+        const oVBox = new sap.m.VBox({
+          items: oFeedbackContainer,
+          width: "calc(100% - 12rem)",
+        });
+
+        oVBox.addEventDelegate({
+          onAfterRendering: () => {
+            const oPage = this.byId("chapterDetails");
+            oPage.scrollToElement(oFeedbackWrapper, 500);
+          },
+        });
+
+        ofeedbackWrapper.removeAllItems();
+        ofeedbackWrapper.addItem(oVBox);
       },
     });
   }

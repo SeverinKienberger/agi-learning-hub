@@ -177,3 +177,8 @@
   border: solid;
   border-color: #b3b3b3;
 }
+
+.AgiNoMarginStartEnd {
+  margin-left: 0;
+  margin-right: 0;
+}
