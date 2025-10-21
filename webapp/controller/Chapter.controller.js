@@ -38,23 +38,7 @@ sap.ui.define(
 
         const oChapter = oContext.getObject();
 
-        const sHtml = oChapter.content_html || "";
-
-        const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
-
-        const oWrapper = new sap.m.VBox({ items: oHtml }).addStyleClass(
-          "sapUiMediumMargin"
-        );
-
-        const oContainer = this.byId("chapterContainer");
-        oContainer.removeAllItems();
-
-        if (sHtml) {
-          oContainer.addItem(oWrapper);
-          this.byId("feedbackWrapper").removeAllItems();
-        } else {
-          oContainer.addItem(this.createTest(oChapter));
-        }
+        this._createChapterContent(oChapter);
 
         this.byId("toolPage")
           .getSideContent()
@@ -105,7 +89,11 @@ sap.ui.define(
           `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`
         );
 
-        const sHtml = oChapter.content_html;
+        this._createChapterContent(oChapter);
+      },
+
+      _createChapterContent: function (oChapter) {
+        const sHtml = oChapter.content_html || "";
 
         const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
 
