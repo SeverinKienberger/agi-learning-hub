@@ -14,6 +14,7 @@ sap.ui.define(
             questions: [],
             rating: {
               percentage: 0,
+              correctQuestions: 0,
               result: null,
             },
             eResult: {
@@ -144,7 +145,11 @@ sap.ui.define(
             .getModel("i18n")
             .getResourceBundle()
             .getText("evaluateAnswers"),
-          press: () => this._onEvaluateAnswers(oTest),
+          id: "oValidateButton",
+          press: () => {
+            this._onEvaluateAnswers(oTest);
+            oButton.destroy();
+          },
         });
 
         const oTestContainer = new sap.m.VBox({
@@ -167,7 +172,7 @@ sap.ui.define(
           answers: aAnswers.map((oAnswer) => ({
             text: oAnswer,
             selected: false,
-            correct: false,
+            correct: null,
           })),
           questionCorrect: false,
         });
@@ -255,7 +260,7 @@ sap.ui.define(
 
         this._setPercentage(this._calculateCorrectQuestions());
         this._setRating();
-        this._generateFeedback();
+        this._generateFeedback(oTest);
       },
 
       _calculateCorrectQuestions: function () {
@@ -265,10 +270,16 @@ sap.ui.define(
             aCorrectQuestions.push(oQuestion.question);
           }
         });
-        return aCorrectQuestions.length;
+        this.oUiControl.setProperty(
+          "/rating/correctQuestions",
+          aCorrectQuestions.length
+        );
       },
 
-      _setPercentage: function (iCorrectQuestions) {
+      _setPercentage: function () {
+        const iCorrectQuestions = this.oUiControl.getProperty(
+          "/rating/correctQuestions"
+        );
         const iQuestionAmount =
           this.oUiControl.getProperty(`/questions`).length;
         const fPercentage = (iCorrectQuestions / iQuestionAmount) * 100;
@@ -290,18 +301,74 @@ sap.ui.define(
         }
       },
 
-      _generateFeedback: function () {
+      _generateFeedback: function (oTest) {
         const oChartContainer = new sap.suite.ui.microchart.RadialMicroChart({
           size: "L",
           percentage: this.oUiControl.getProperty("/rating/percentage"),
           valueColor: this.oUiControl.getProperty("/rating/result"),
+          width: "6rem",
         });
         const oHorizontalLayout = new sap.ui.layout.HorizontalLayout({
           content: oChartContainer,
+        }).addStyleClass("sapUiSmallMarginEnd");
+        const oRepeatButton = new sap.m.Button({
+          text: this.getView()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText("evaluateAnswers"),
+          press: () => {
+            this._onEvaluateAnswers(oTest);
+          },
         });
-        const ofeedbackWrapper = this.byId("feedbackWrapper");
+
+        let sFeedbackTitle = "";
+
+        if (this.oUiControl.getProperty("/rating/result") == "good") {
+          sFeedbackTitle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText("feedbackGood");
+        } else {
+          sFeedbackTitle = this.getView()
+            .getModel("i18n")
+            .getResourceBundle()
+            .getText("feedbackBad");
+        }
+
+        const iCorrectQuestions = this.oUiControl.getProperty(
+          "/rating/correctQuestions"
+        );
+        const iQuestionAmount =
+          this.oUiControl.getProperty(`/questions`).length;
+
+        const sFeedBackText = `${iCorrectQuestions} von ${iQuestionAmount} Fragen sind richtig beantwortet worden`; // I18n Erstellen, wenn noch zeit
+
+        const oFeedBackTitle = new sap.m.Title({
+          text: sFeedbackTitle,
+        }).addStyleClass("AgiHeader2");
+        const oFeedBackText = new sap.m.Text({
+          text: sFeedBackText,
+        });
+
+        const oFeedbackTextWrapper = new sap.m.VBox({
+          items: [oFeedBackTitle, oFeedBackText],
+        });
+
+        const oFeedBackWrapperLeft = new sap.m.HBox({
+          items: [oHorizontalLayout, oFeedbackTextWrapper],
+          justifyContent: "Center",
+        });
+
+        const oCenterVBox = new sap.m.HBox({
+          items: [oFeedBackWrapperLeft, oRepeatButton],
+          width: "100%",
+          justifyContent: "SpaceBetween",
+          alignItems: "End",
+        });
+
+        const oFeedbackWrapper = this.byId("feedbackWrapper");
         const oFeedbackContainer = new sap.m.Panel({
-          content: oHorizontalLayout,
+          content: [oCenterVBox],
           width: "100%",
         }).addStyleClass(
           "sapMTile AgiNoMarginStartEnd sapUiSmallMarginTopBottom"
@@ -312,16 +379,11 @@ sap.ui.define(
           width: "calc(100% - 12rem)",
         });
 
-        oVBox.addEventDelegate({
-          onAfterRendering: () => {
-            const oPage = this.byId("chapterDetails");
-            oPage.scrollToElement(oFeedbackWrapper, 500);
-          },
-        });
-
-        ofeedbackWrapper.removeAllItems();
-        ofeedbackWrapper.addItem(oVBox);
+        oFeedbackWrapper.removeAllItems();
+        oFeedbackWrapper.addItem(oVBox);
       },
+
+      _showWrongAnswer: function () {},
     });
   }
 );

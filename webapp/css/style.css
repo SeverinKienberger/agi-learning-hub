@@ -182,3 +182,11 @@
   margin-left: 0;
   margin-right: 0;
 }
+
+.sapUiNegativeColor {
+  color: #e60000; /* Rote Farbe für Fehler */
+}
+
+.sapUiPositiveColor {
+  color: #4caf50; /* Grüne Farbe für Erfolg */
+}
