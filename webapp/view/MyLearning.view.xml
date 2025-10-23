@@ -5,7 +5,7 @@
     <Page
         showHeader="false">
         <content>
-            <Text text="{i18n>myLearningPageTitle}" />
+            <Title text="{i18n>myLearningPageTitle}" />
         </content>
     </Page>
 </mvc:View>

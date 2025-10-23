@@ -107,15 +107,17 @@ sap.ui.define(
           "sapUiMediumMargin"
         );
 
+        if (this._oTestFragment) {
+          this._oTestFragment.destroy();
+          this._oTestFragment = null;
+        }
+
         const oContainer = this.byId("chapterContainer");
         oContainer.removeAllItems();
 
         if (this.oChapter.type == "chapter") {
           oContainer.addItem(oWrapper);
         } else {
-          if (this.byId("testContainer")) {
-            this.removeAllItems();
-          }
           this.createTest();
         }
       },
@@ -125,11 +127,10 @@ sap.ui.define(
           name: "ui5.agi_learning_hub.view.fragment.Test",
           type: "XML",
           controller: this,
-        }).then(
-          function (oFragment) {
-            oFragment.placeAt(this.byId("chapterDetails"));
-          }.bind(this)
-        );
+        }).then((oFragment) => {
+          this._oTestFragment = oFragment;
+          oFragment.placeAt(this.byId("chapterDetails"));
+        });
       },
 
       createQuestion: function (sId, oContext) {

@@ -1,9 +1,9 @@
 <VBox
     xmlns="sap.m"
     xmlns:layout="sap.ui.layout"
-    xmlns:microchart="sap.suite.ui.microchart">
+    xmlns:microchart="sap.suite.ui.microchart"
+    id="testContainer">
     <ScrollContainer
-        id="quizScroll"
         vertical="true"
         width="100%"
         height="100%"
