@@ -8,7 +8,7 @@
 
     <ToolPage id="toolPage">
         <sideContent>
-            <SideNavigation expanded="true" selectedKey="" itemSelect="onItemSelect">
+            <SideNavigation expanded="true" selectedKey="">
                 <item>
                     <NavigationList items="{units}">
                         <NavigationListItem items="{chapters}" key="{id}" text="{title}">
@@ -21,7 +21,6 @@
         <mainContents>
             <m:Page id="chapterDetails" showHeader="false">
                 <m:VBox id="chapterContainer" width="100%" />
-                <m:VBox id="feedbackWrapper" width="100%" alignItems="Center" />
             </m:Page>
         </mainContents>
     </ToolPage>

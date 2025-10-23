@@ -9,14 +9,17 @@ sap.ui.define(
           .getRouter()
           .getRoute("chapter")
           .attachPatternMatched(this._onChapterMatched, this);
+        this.oRouter = this.getOwnerComponent().getRouter();
         this.getView().setModel(
           new JSONModel({
             questions: [],
             rating: {
               percentage: 0,
               correctQuestions: 0,
+              questionAmount: 0,
               result: null,
             },
+            showFeedback: false,
             eResult: {
               GOOD: "Good",
               CRITICAL: "Critical",
@@ -33,50 +36,52 @@ sap.ui.define(
         const oItem = oEvent.getParameter("item") || oEvent.getSource();
         const oContext = oItem.getBindingContext();
 
-        this.byId("chapterDetails").bindElement({
-          path: oContext.getPath(),
-        });
-
-        const oChapter = oContext.getObject();
-
-        this._createChapterContent(oChapter);
+        const sChapterId = oContext.getObject().id;
+        const sUnitId = oEvent.getSource().getParent().getProperty("key");
 
         this.byId("toolPage")
           .getSideContent()
           .setSelectedKey(oContext.getProperty("id"));
+        this.oRouter.navTo("chapter", {
+          courseId: this.sCourseId,
+          unitId: sUnitId,
+          chapterId: sChapterId,
+        });
       },
 
-      _findCourseIndex(sCourseId) {
+      _findCourseIndex: function () {
         const aCourses = this.oModel.getProperty("/master_data/courses") || [];
-        return aCourses.findIndex((oCourse) => oCourse.id === sCourseId);
+        return aCourses.findIndex((oCourse) => oCourse.id === this.sCourseId);
       },
 
-      _findUnitIndex(iCourse, sUnitId) {
+      _findUnitIndex: function (iCourse) {
         const aUnits =
           this.oModel.getProperty(`/master_data/courses/${iCourse}/units`) ||
           [];
-        return aUnits.findIndex((oUnit) => oUnit.id === sUnitId);
+        return aUnits.findIndex((oUnit) => oUnit.id === this.sUnitId);
       },
 
-      _findChapterIndex(iCourse, iUnit, sChapterId) {
+      _findChapterIndex(iCourse, iUnit) {
         const aChapters =
           this.oModel.getProperty(
             `/master_data/courses/${iCourse}/units/${iUnit}/chapters`
           ) || [];
-        return aChapters.findIndex((oChapter) => oChapter.id === sChapterId);
+        return aChapters.findIndex(
+          (oChapter) => oChapter.id === this.sChapterId
+        );
       },
 
       _onChapterMatched: function (oEvent) {
-        const sCourseId = oEvent.getParameter("arguments").courseId;
-        const sUnitId = oEvent.getParameter("arguments").unitId;
-        const sChapterId = oEvent.getParameter("arguments").chapterId;
+        this.sCourseId = oEvent.getParameter("arguments").courseId;
+        this.sUnitId = oEvent.getParameter("arguments").unitId;
+        this.sChapterId = oEvent.getParameter("arguments").chapterId;
 
-        const iCourse = this._findCourseIndex(sCourseId);
-        const iUnit = this._findUnitIndex(iCourse, sUnitId);
-        const iChapter = this._findChapterIndex(iCourse, iUnit, sChapterId);
+        const iCourse = this._findCourseIndex(this.sCourseId);
+        const iUnit = this._findUnitIndex(iCourse);
+        const iChapter = this._findChapterIndex(iCourse, iUnit);
 
         const oSideNav = this.byId("toolPage").getSideContent();
-        oSideNav.setSelectedKey(sChapterId);
+        oSideNav.setSelectedKey(this.sChapterId);
 
         this.getView().bindElement({
           path: `/master_data/courses/${iCourse}`,
@@ -86,15 +91,15 @@ sap.ui.define(
           path: `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`,
         });
 
-        const oChapter = this.oModel.getProperty(
+        this.oChapter = this.oModel.getProperty(
           `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`
         );
 
-        this._createChapterContent(oChapter);
+        this._createChapterContent();
       },
 
-      _createChapterContent: function (oChapter) {
-        const sHtml = oChapter.content_html || "";
+      _createChapterContent: function () {
+        const sHtml = this.oChapter.content_html || "";
 
         const oHtml = new sap.ui.core.HTML({ content: [sHtml] });
 
@@ -105,59 +110,26 @@ sap.ui.define(
         const oContainer = this.byId("chapterContainer");
         oContainer.removeAllItems();
 
-        if (sHtml) {
+        if (this.oChapter.type == "chapter") {
           oContainer.addItem(oWrapper);
-          this.byId("feedbackWrapper").removeAllItems();
         } else {
-          oContainer.addItem(this.createTest(oChapter));
+          if (this.byId("testContainer")) {
+            this.removeAllItems();
+          }
+          this.createTest();
         }
       },
 
-      createTest: function (oTest) {
-        const oModel = new sap.ui.model.json.JSONModel(oTest);
-        this.getView().setModel(oModel, "test");
-
-        const oTitle = new sap.m.Title({ text: oTest.title }).addStyleClass(
-          "AgiHeader2 sapUiSmallMarginBegin"
+      createTest: function () {
+        sap.ui.core.Fragment.load({
+          name: "ui5.agi_learning_hub.view.fragment.Test",
+          type: "XML",
+          controller: this,
+        }).then(
+          function (oFragment) {
+            oFragment.placeAt(this.byId("chapterDetails"));
+          }.bind(this)
         );
-
-        const oHeaderSpace = new sap.m.VBox({
-          items: [oTitle],
-          width: "100%",
-          height: "5rem",
-          alignItems: "Start",
-          justifyContent: "Center",
-          backgroundDesign: "Solid",
-        });
-
-        const oQuestionContainer = new sap.m.VBox({
-          items: {
-            path: "test>/questions",
-            factory: this.createQuestion.bind(this),
-          },
-
-          width: "calc(100% - 12rem)",
-          gap: "2.5rem",
-        });
-
-        const oButton = new sap.m.Button({
-          text: this.getView()
-            .getModel("i18n")
-            .getResourceBundle()
-            .getText("evaluateAnswers"),
-          id: "oValidateButton",
-          press: () => {
-            this._onEvaluateAnswers(oTest);
-            oButton.destroy();
-          },
-        });
-
-        const oTestContainer = new sap.m.VBox({
-          items: [oHeaderSpace, oQuestionContainer, oButton],
-          alignItems: "Center",
-          gap: "2.5rem",
-        });
-        return oTestContainer;
       },
 
       createQuestion: function (sId, oContext) {
@@ -173,6 +145,7 @@ sap.ui.define(
             text: oAnswer,
             selected: false,
             correct: null,
+            valueState: "None",
           })),
           questionCorrect: false,
         });
@@ -190,6 +163,7 @@ sap.ui.define(
               new sap.m.CheckBox({
                 text: "{uiControl>text}",
                 selected: "{uiControl>selected}",
+                valueState: "{uiControl>valueState}",
               }),
             ],
             width: "calc(100% - 1rem)",
@@ -203,36 +177,55 @@ sap.ui.define(
         });
       },
 
-      _onEvaluateAnswers: function (oTest) {
-        const oData = this.oUiControl.getData();
-        const aQuestions = oTest.questions;
+      _onEvaluateAnswers: function (oEvent) {
+        const aUiQuestions = this.oUiControl.getProperty("/questions");
+        const iCourse = this._findCourseIndex();
+        const iUnit = this._findUnitIndex(iCourse);
+        const iChapter = this._findChapterIndex(iCourse, iUnit);
+        const oTest = this.oModel.getProperty(
+          `/master_data/courses/${iCourse}/units/${iUnit}/chapters/${iChapter}`
+        );
 
         oTest.questions.forEach((oQuestion, iQuestion) => {
           oQuestion.answers.forEach((oAnswer, iAnswer) => {
-            if (aQuestions[iQuestion].correct.includes(iAnswer)) {
-              if (oData.questions[iQuestion].answers[iAnswer].selected) {
+            if (oQuestion.correct.includes(iAnswer)) {
+              if (aUiQuestions[iQuestion].answers[iAnswer].selected) {
                 this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
+                );
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/valueState`,
+                  "Success"
                 );
               } else {
                 this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   false
+                );
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/valueState`,
+                  "Error"
                 );
               }
             } else {
-              if (!oData.questions[iQuestion].answers[iAnswer].selected) {
-                console.log("index: " + iQuestion);
-                console.log(this.oUiControl);
+              if (!aUiQuestions[iQuestion].answers[iAnswer].selected) {
                 this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   true
+                );
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/valueState`,
+                  "None"
                 );
               } else {
                 this.oUiControl.setProperty(
                   `/questions/${iQuestion}/answers/${iAnswer}/correct`,
                   false
+                );
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/valueState`,
+                  "Error"
                 );
               }
             }
@@ -258,14 +251,16 @@ sap.ui.define(
             }
           });
 
-        this._setPercentage(this._calculateCorrectQuestions());
+        this._calculateCorrectQuestions();
+        this._setPercentage();
         this._setRating();
-        this._generateFeedback(oTest);
+
+        this.oUiControl.setProperty("/showFeedback", true);
       },
 
       _calculateCorrectQuestions: function () {
         const aCorrectQuestions = [];
-        this.oUiControl.getData().questions.forEach((oQuestion) => {
+        this.oUiControl.getProperty("/questions").forEach((oQuestion) => {
           if (oQuestion.questionCorrect) {
             aCorrectQuestions.push(oQuestion.question);
           }
@@ -274,6 +269,11 @@ sap.ui.define(
           "/rating/correctQuestions",
           aCorrectQuestions.length
         );
+
+        const iQuestionAmount =
+          this.oUiControl.getProperty(`/questions`).length;
+
+        this.oUiControl.setProperty("/rating/questionAmount", iQuestionAmount);
       },
 
       _setPercentage: function () {
@@ -301,89 +301,29 @@ sap.ui.define(
         }
       },
 
-      _generateFeedback: function (oTest) {
-        const oChartContainer = new sap.suite.ui.microchart.RadialMicroChart({
-          size: "L",
-          percentage: this.oUiControl.getProperty("/rating/percentage"),
-          valueColor: this.oUiControl.getProperty("/rating/result"),
-          width: "6rem",
-        });
-        const oHorizontalLayout = new sap.ui.layout.HorizontalLayout({
-          content: oChartContainer,
-        }).addStyleClass("sapUiSmallMarginEnd");
-        const oRepeatButton = new sap.m.Button({
-          text: this.getView()
-            .getModel("i18n")
-            .getResourceBundle()
-            .getText("evaluateAnswers"),
-          press: () => {
-            this._onEvaluateAnswers(oTest);
-          },
-        });
-
-        let sFeedbackTitle = "";
-
-        if (this.oUiControl.getProperty("/rating/result") == "good") {
-          sFeedbackTitle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle()
-            .getText("feedbackGood");
-        } else {
-          sFeedbackTitle = this.getView()
-            .getModel("i18n")
-            .getResourceBundle()
-            .getText("feedbackBad");
-        }
-
-        const iCorrectQuestions = this.oUiControl.getProperty(
-          "/rating/correctQuestions"
-        );
-        const iQuestionAmount =
-          this.oUiControl.getProperty(`/questions`).length;
-
-        const sFeedBackText = `${iCorrectQuestions} von ${iQuestionAmount} Fragen sind richtig beantwortet worden`; // I18n Erstellen, wenn noch zeit
-
-        const oFeedBackTitle = new sap.m.Title({
-          text: sFeedbackTitle,
-        }).addStyleClass("AgiHeader2");
-        const oFeedBackText = new sap.m.Text({
-          text: sFeedBackText,
-        });
-
-        const oFeedbackTextWrapper = new sap.m.VBox({
-          items: [oFeedBackTitle, oFeedBackText],
-        });
-
-        const oFeedBackWrapperLeft = new sap.m.HBox({
-          items: [oHorizontalLayout, oFeedbackTextWrapper],
-          justifyContent: "Center",
-        });
-
-        const oCenterVBox = new sap.m.HBox({
-          items: [oFeedBackWrapperLeft, oRepeatButton],
-          width: "100%",
-          justifyContent: "SpaceBetween",
-          alignItems: "End",
-        });
-
-        const oFeedbackWrapper = this.byId("feedbackWrapper");
-        const oFeedbackContainer = new sap.m.Panel({
-          content: [oCenterVBox],
-          width: "100%",
-        }).addStyleClass(
-          "sapMTile AgiNoMarginStartEnd sapUiSmallMarginTopBottom"
-        );
-
-        const oVBox = new sap.m.VBox({
-          items: oFeedbackContainer,
-          width: "calc(100% - 12rem)",
-        });
-
-        oFeedbackWrapper.removeAllItems();
-        oFeedbackWrapper.addItem(oVBox);
+      resetQuiz: function () {
+        this.oUiControl
+          .getProperty("/questions")
+          .forEach((oQuestion, iQuestion) => {
+            oQuestion.answers.forEach((oAnswer, iAnswer) => {
+              if (
+                !this.oUiControl.getProperty(
+                  `/questions/${iQuestion}/questionCorrect`
+                )
+              ) {
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/selected`,
+                  false
+                );
+                this.oUiControl.setProperty(
+                  `/questions/${iQuestion}/answers/${iAnswer}/valueState`,
+                  "None"
+                );
+              }
+            });
+          });
+        this.oUiControl.setProperty("/showFeedback", false);
       },
-
-      _showWrongAnswer: function () {},
     });
   }
 );
