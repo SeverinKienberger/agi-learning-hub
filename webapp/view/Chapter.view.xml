@@ -20,7 +20,8 @@
         </sideContent>
         <mainContents>
             <m:Page id="chapterDetails" showHeader="false">
-                <m:VBox id="chapterContainer" width="100%" />
+                <m:VBox id="chapterContainer" width="100%" visible="{uiControl>isChapterVisible}" />
+                <m:VBox id="testContainer" width="100%" visible="{uiControl>isTestVisible}" />
             </m:Page>
         </mainContents>
     </ToolPage>
