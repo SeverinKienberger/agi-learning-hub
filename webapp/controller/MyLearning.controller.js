@@ -22,24 +22,13 @@ sap.ui.define(
           "/transactional_data/user_course_progress"
         );
 
-        const aCourseIds = [];
-        aAllProgress.forEach((oProgress) => {
-          if (oProgress.status == sStatus) {
-            aCourseIds.push(oProgress.course_id);
-          }
-        });
+        const aCourseIds = aAllProgress
+          .filter((oProgress) => oProgress.status == sStatus)
+          .map((oProgress) => oProgress.course_id);
 
         const aAllCourses = this.oModel.getProperty("/master_data/courses");
 
-        const aSpecificCourses = [];
-
-        aAllCourses.forEach((oCourse) => {
-          if (aCourseIds.includes(oCourse.id)) {
-            aSpecificCourses.push(oCourse);
-          }
-        });
-
-        return aSpecificCourses;
+        return aCourseIds.map(sCourseId => aAllCourses.find(oCourse => oCourse.id === sCourseId));
       },
     });
   }
