@@ -9,32 +9,44 @@ sap.ui.define(
         this.oModel = this.getOwnerComponent().getModel();
         this.getView().setModel(
           new JSONModel({
-            courses: {
-              in_progress: this._getCourses("in_progress"),
-              completed: this._getCourses("completed"),
-              not_started: this._getCourses("not_started"),
-              overdue: this._getCourses("overdue"),
-            },
+            progress: [
+              { title: "inProgress", courses: this._getCourses("in_progress") },
+              { title: "completed", courses: this._getCourses("completed") },
+              { title: "notStarted", courses: this._getCourses("not_started") },
+              { title: "overdue", courses: this._getCourses("overdue") },
+            ],
           }),
           "uiControl"
         );
-        this.oUiControl = this.getView().getModel("uiControl");
       },
 
       _getCourses: function (sStatus) {
         const aAllProgress = this.oModel.getProperty(
           "/transactional_data/user_course_progress"
         );
-
         const aCourseIds = aAllProgress
-          .filter((oProgress) => oProgress.status == sStatus)
-          .map((oProgress) => oProgress.course_id);
-
+          .filter((o) => o.status == sStatus)
+          .map((o) => o.course_id);
         const aAllCourses = this.oModel.getProperty("/master_data/courses");
+        return aCourseIds.map((id) => aAllCourses.find((c) => c.id === id));
+      },
 
-        return aCourseIds.map((sCourseId) =>
-          aAllCourses.find((oCourse) => oCourse.id === sCourseId)
-        );
+      formatTitle: function (key) {
+        const oI18n = this.getOwnerComponent().getModel("i18n");
+        return oI18n.getResourceBundle().getText(key);
+      },
+
+      formatLevel: function (id) {
+        const oMasterData = this.oModel.getProperty("/master_data");
+        const oMatch = oMasterData.levels.find((o) => o.id === id);
+        return oMatch ? oMatch.title : id;
+      },
+      onCoursePress: function (oEvent) {
+        const oContext = oEvent
+          .getParameter("listItem")
+          .getBindingContext("uiControl");
+        const sId = oContext.getObject().id;
+        this.oRouter.navTo("course", { id: sId });
       },
     });
   }

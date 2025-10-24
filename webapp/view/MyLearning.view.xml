@@ -1,12 +1,57 @@
 <mvc:View
     xmlns="sap.m"
+    xmlns:f="sap.f"
     xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:grid="sap.ui.layout.cssgrid"
     controllerName="ui5.agi_learning_hub.controller.MyLearning">
     <Page
         showHeader="false">
         <content>
-            <Title text="{i18n>myLearningPageTitle}" />
+            <VBox alignItems="Center" backgroundDesign="Solid">
+                <Title text="{i18n>myLearningPageTitle}" wrapping="true" class="AgiHeader1" />
+            </VBox>
+            <VBox alignItems="Stretch" class="AgiGridListContainer" items="{uiControl>/progress}">
+                <items>
+                    <Panel class="sapUiMediumMarginTop" stickyHeader="True">
+                        <VBox class="AgiHeaderSpace">
+                            <Title text="{ path: 'uiControl>title' , formatter: '.formatTitle' }"
+                                class="AgiHeader2"></Title>
+                        </VBox>
+                        <f:GridList
+                            items="{uiControl>courses}"
+                            itemPress=".onCoursePress"
+                            class="AgiGridList">
+                            <f:customLayout>
+                                <grid:GridBoxLayout boxMinWidth="15rem" />
+                            </f:customLayout>
+                            <f:GridListItem type="Active">
+                                <VBox class="sapUiSmallMargin" justifyContent="SpaceBetween"
+                                    height="calc(100% - 30px)">
+                                    <layoutData>
+                                        <FlexItemData growFactor="7" shrinkFactor="0" />
+                                    </layoutData>
+                                    <Text text="{i18n>course}" />
+                                    <Title text="{uiControl>title}" wrapping="true" />
+                                    <Text text="{uiControl>description}" wrapping="true" />
+                                    <HBox justifyContent="SpaceBetween" width="100%"
+                                        class="sapUiSmallMarginTop">
+                                        <Text
+                                            text="{ path: 'uiControl>level_id', formatter: '.formatLevel'}"
+                                            wrapping="true" />
+                                        <Text
+                                            text="{= ( ${uiControl>total_duration_minutes} - ${uiControl>total_duration_minutes} % 60 ) / 60
+                                            + ' h ' +
+                                        ( ${uiControl>total_duration_minutes} % 60 ) + ' min' }"
+                                            wrapping="false" />
+                                    </HBox>
+                                </VBox>
+                            </f:GridListItem>
+                        </f:GridList>
+                    </Panel>
+                </items>
+            </VBox>
         </content>
     </Page>
 </mvc:View>
