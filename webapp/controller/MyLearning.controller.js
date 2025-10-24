@@ -9,12 +9,16 @@ sap.ui.define(
         this.oModel = this.getOwnerComponent().getModel();
         this.getView().setModel(
           new JSONModel({
-            courseIds: [],
+            courses: {
+              in_progress: this._getCourses("in_progress"),
+              completed: this._getCourses("completed"),
+              not_started: this._getCourses("not_started"),
+              overdue: this._getCourses("overdue"),
+            },
           }),
           "uiControl"
         );
         this.oUiControl = this.getView().getModel("uiControl");
-        console.log(this._getCourses("in_progress"));
       },
 
       _getCourses: function (sStatus) {
@@ -28,7 +32,9 @@ sap.ui.define(
 
         const aAllCourses = this.oModel.getProperty("/master_data/courses");
 
-        return aCourseIds.map(sCourseId => aAllCourses.find(oCourse => oCourse.id === sCourseId));
+        return aCourseIds.map((sCourseId) =>
+          aAllCourses.find((oCourse) => oCourse.id === sCourseId)
+        );
       },
     });
   }
