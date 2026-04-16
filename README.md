@@ -26,7 +26,7 @@ Funktionalitäten wie „My Learning“, Badges und Certificates sind aktuell ni
 
 Um das Projekt lokal zu starten:
 
-```Shell
+```Bash
 npm install
 npm start
 ```
