@@ -28,7 +28,7 @@ Funktionalitäten wie „My Learning“, Badges und Certificates sind aktuell ni
 
 Um das Projekt lokal zu starten:
 
-| :exclamation:  funktioniert mit node.js Version v22.23.5. andere Versionen können Probleme verursachen |
+| :exclamation:  funktioniert mit node.js Version v26.13.1. andere Versionen können Probleme verursachen |
 |----------------------------------------------|
 
 1. 'main' branch clonen
