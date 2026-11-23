@@ -3,10 +3,12 @@
 ## Beschreibung
 
 Ein Learning Hub zum Lernen mit SAP-Kursen, bestehend aus Units und Chapters. Jede Unit hat einen zugehörigen Test.
-Tests werden automatisch ausgewertet und falsche Antworten werden angezeigt.
+Tests werden automatisch ausgewertet, falsche sowie richtige Antworten werden angezeigt.
 
 Lernpfade gruppieren mehrere Kurse.
 Lernpfade und Kurse können gefiltert und durchsucht werden.
+
+Die Seite hat noch keine Landing-Page.
 
 Das Projekt entstand im Rahmen meines Praktikums bei AGILITA AG und diente als Lernprojekt.
 
