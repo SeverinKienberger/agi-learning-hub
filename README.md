@@ -28,6 +28,12 @@ Funktionalitäten wie „My Learning“, Badges und Certificates sind aktuell ni
 
 Um das Projekt lokal zu starten:
 
+| :exclamation:  funktioniert mit node.js Version v22.23.5. andere Versionen können Probleme verursachen |
+|----------------------------------------------|
+
+1. 'main' branch clonen
+2. Folgende Befehle in der Konsole im Projektordner ausführen
+
 ```Bash
 npm install
 npm start
